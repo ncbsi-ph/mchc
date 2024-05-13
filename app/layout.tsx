@@ -52,7 +52,7 @@ export default function RootLayout({
                   itemColor: '#FFFFFF',
                   linkColor: '#FFFFFF',
                   linkHoverColor: '#FFFFFF',
-                  colorBgTextHover: '#285B9E',
+                  colorBgTextHover: '#E18E26',
                   lastItemColor: '#FFFF00',
                   separatorColor: '#FFFF00',
                 },
