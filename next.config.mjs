@@ -2,21 +2,15 @@
 const nextConfig = {
   transpilePackages: ['react-icons'],
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'i.imgur.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'metrosjmc.com.ph',
-
-        port: '',
-        pathname: '/static/**',
-      },
-    ],
+    // remotePatterns: [
+    //   {
+    //     protocol: 'http',
+    //     hostname: 'localhost',
+    //     port: '5219',
+    //     pathname: '/images/**',
+    //   },
+    // ],
+    domains: ['localhost'],
   },
 };
 

@@ -2,41 +2,25 @@
 
 import { ComponentSize } from '@/app/helpers';
 import { Collapse } from 'antd';
-
-export default function FaqsCollapse() {
+import { FaqsTypes } from './faqs';
+import parse from 'html-react-parser';
+interface FaqsCollapseProps {
+  data: FaqsTypes[];
+}
+export const FaqsCollapse = ({ data }: FaqsCollapseProps) => {
+  const faqs = data.map((item) => ({
+    key: item.id,
+    label: item.title,
+    children: <div className="ck-content">{parse(item.description)}</div>,
+  }));
   return (
     <div className="pt5">
       <Collapse
         accordion
-        items={[
-          {
-            key: '1',
-            label: 'This is a header',
-            children: (
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-                sit expedita error ex aspernatur consequatur corporis sint,
-                totam voluptate quasi eveniet culpa quisquam ipsa enim ipsam cum
-                vitae aliquid alias.
-              </p>
-            ),
-          },
-          {
-            key: '2',
-            label: 'This is a header too',
-            children: (
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Aperiam voluptatem et perspiciatis vero aliquid, harum
-                laudantium dolor culpa, illo asperiores inventore officia,
-                possimus nihil ea aut? Esse odit reprehenderit non!
-              </p>
-            ),
-          },
-        ]}
+        items={faqs}
         defaultActiveKey={1}
         size={ComponentSize()}
       />
     </div>
   );
-}
+};

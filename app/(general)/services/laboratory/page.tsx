@@ -1,40 +1,25 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import LaboratoryClient from '@/app/components/services/laboratory-client';
 
-export interface LabDataTypes {
+export interface LaboratoryTypes {
   id: number;
   name: string;
 }
 
-const labData: LabDataTypes[] = [
-  {
-    id: 1,
-    name: '2-HR PPBS (Post-prandial bld.sugar)',
-  },
-  {
-    id: 2,
-    name: '24 HR UR CREA',
-  },
-  {
-    id: 3,
-    name: '24 HR UR CREACLRANCE',
-  },
-  {
-    id: 4,
-    name: 'ACID PHOSPHATASE',
-  },
-  {
-    id: 5,
-    name: 'AFB TEST',
-  },
-  {
-    id: 6,
-    name: 'AMYLASE',
-  },
-];
+const getLab = async (): Promise<LaboratoryTypes[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}service/lab`, {
+    headers: {
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+    },
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('failed to fetch data');
+  return res.json();
+};
 
-export default function Laboratory() {
+export default async function Laboratory() {
   const pageTitle = 'Laboratory';
+  const lab = await getLab();
   return (
     <>
       <Breadcrumbs
@@ -42,7 +27,7 @@ export default function Laboratory() {
         title={pageTitle}
       />
       <section className="container my-28">
-        <LaboratoryClient data={labData} />
+        <LaboratoryClient data={lab} />
       </section>
     </>
   );

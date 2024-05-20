@@ -24,7 +24,6 @@ export default function Appointment() {
         ) : (
           <Card className="bg-slate-50 text-center">
             <p>
-              {' '}
               We regret to inform you that this service is currently
               unavailable. For updates or inquiries, please reach out to us
               through our social media channels or email. We apologize for any

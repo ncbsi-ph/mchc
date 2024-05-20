@@ -75,8 +75,7 @@ export default function NewsEventsClient({ data }: NewsEventsClientProps) {
                 <Link href={`/news-events/${item.id}/${item.slug}`}>
                   <div className="w-full h-52 md:h-44 bg-slate-200 relative">
                     <Image
-                      // src={item.thumbnail}
-                      src="https://i.imgur.com/Ycfi8RS.png"
+                      src={item.thumbnail}
                       alt={item.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

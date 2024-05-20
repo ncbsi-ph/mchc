@@ -13,41 +13,23 @@ interface NewsItemsTypes {
   type: 'news' | 'events' | 'promo';
   thumbnail: string;
 }
+const getHomeNewsEvents = async (): Promise<NewsItemsTypes[]> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}home/news-events`,
+    {
+      headers: {
+        'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+      },
+      cache: 'no-store',
+    }
+  );
+  if (!res.ok) throw new Error('failed to fetch data');
+  return res.json();
+};
 
-const news_events: NewsItemsTypes[] = [
-  {
-    id: 1,
-    title: 'NEW REHAB FACILITY OPENS',
-    slug: 'test',
-    description:
-      'We are delighted to announce that our Rehabilitation Center, in partnership with LIPA PHYSICAL REHABILITATION AND LEARNING CENTER, will be opening its doors on July 12, 2023.',
-    date: '10/10/2024',
-    type: 'promo',
-    thumbnail: 'string',
-  },
-  {
-    id: 2,
-    title: 'Test',
-    slug: 'test',
-    description:
-      'Common Shares were then sold and Ground-Breaking Ceremony was held on March 2011. All necessary documents were filed, all permits to operate got into hands, and hiring personnel to render quality healthcare was done. After all the hardships of fulfilling a dream, it has now become true that the hospital was brought into reality. It is now open and ready to serve people at all times, in the name of Metro San Jose Medical Center.',
-    date: '10/10/2024',
-    type: 'events',
-    thumbnail: 'string',
-  },
-  {
-    id: 3,
-    title: 'NEW REHAB FACILITY OPENS',
-    slug: 'test',
-    description:
-      'We are delighted to announce that our Rehabilitation Center, in partnership with LIPA PHYSICAL REHABILITATION AND LEARNING CENTER, will be opening its doors on July 12, 2023.',
-    date: '10/10/2024',
-    type: 'promo',
-    thumbnail: 'string',
-  },
-];
 const DATE_FORMAT = 'MMMM DD, YYYY';
-export default function NewsEvents() {
+export default async function NewsEvents() {
+  const news_events = await getHomeNewsEvents();
   const latest = news_events[0];
 
   let isOther = news_events.length > 1;
@@ -70,12 +52,12 @@ export default function NewsEvents() {
             >
               <Link href={`/news-events/${latest.id}/${latest.slug}`}>
                 <div
-                  className={`bg-slate-300 w-full h-60 relative ${
+                  className={`bg-slate-300 w-full h-60 relative rounded-sm ${
                     isOther ? 'md:h-72' : 'md:h-96'
                   }`}
                 >
                   <Image
-                    src="https://i.imgur.com/Ycfi8RS.png"
+                    src={latest.thumbnail}
                     alt={latest.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -111,15 +93,14 @@ export default function NewsEvents() {
                   key={item.id}
                 >
                   <div className="flex gap-x-3 justify-start group">
-                    <div className="bg-slate-300 relative flex-shrink-0 w-28 aspect-square sm:w-2/5 sm:h-[150px] md:w-44 lg:w-28 lg:h-full">
+                    <div className="bg-slate-300 relative flex-shrink-0 w-28 aspect-square sm:w-2/5 sm:h-[150px] md:w-44 lg:w-28 lg:h-full rounded-sm">
                       <Image
-                        src="https://i.imgur.com/Ycfi8RS.png"
+                        src={item.thumbnail}
                         alt={item.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         style={{
-                          objectFit: 'cover',
-                          objectPosition: 'top',
+                          objectFit: 'contain',
                         }}
                         quality={50}
                       />

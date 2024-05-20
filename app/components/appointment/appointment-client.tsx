@@ -1,5 +1,10 @@
 'use client';
 
+import {
+  SubmitAppointmentPayload,
+  getAppointmentServices,
+  submitAppointment,
+} from '@/app/api';
 import { ComponentSize } from '@/app/helpers';
 import {
   Button,
@@ -32,98 +37,98 @@ export default function AppointmentClientForm() {
   const [others, setOthers] = useState<OptTypes[]>();
   const [messageApi, contextHolder] = message.useMessage();
   const handleFinish = async (values: any) => {
-    //   try {
-    //     setIsSubmitting(true);
-    //     const payload: SubmitAppointmentPayload = {
-    //       fname: values.fname,
-    //       mname: values.mname === undefined ? null : values.mname,
-    //       lname: values.lname,
-    //       email: values.email,
-    //       contact_no: values.contact_no,
-    //       birth_date: dayjs(values.birth_date).format('YYYY-MM-DD HH:mm:ss'),
-    //       preferred_physician:
-    //         values.preferred_physician === undefined
-    //           ? null
-    //           : values.preferred_physician,
-    //       preferred_date: dayjs(values.preferred_date).format(
-    //         'YYYY-MM-DD HH:mm:ss'
-    //       ),
-    //       laboratory:
-    //         values.laboratory === undefined
-    //           ? null
-    //           : values.laboratory.join(' - '),
-    //       radiology:
-    //         values.radiology === undefined ? null : values.radiology.join(' - '),
-    //       opd: values.opd === undefined ? null : values.opd.join(' - '),
-    //       others: values.others === undefined ? null : values.others.join(' - '),
-    //       addional_message:
-    //         values.addional_message === undefined
-    //           ? null
-    //           : values.addional_message,
-    //     };
-    //     const response = await submitAppointment(payload);
-    //     messageApi.success(response);
-    //     appointmentForm.resetFields();
-    //   } catch (err: any) {
-    //     if (err.response) {
-    //       messageApi.error(err.response?.data);
-    //     } else {
-    //       messageApi.error('Something went wrong please try again later');
-    //     }
-    //     console.log(err);
-    //   } finally {
-    //     setIsSubmitting(false);
-    //   }
+    try {
+      setIsSubmitting(true);
+      const payload: SubmitAppointmentPayload = {
+        fname: values.fname,
+        mname: values.mname === undefined ? null : values.mname,
+        lname: values.lname,
+        email: values.email,
+        contact_no: values.contact_no,
+        birth_date: dayjs(values.birth_date).format('YYYY-MM-DD HH:mm:ss'),
+        preferred_physician:
+          values.preferred_physician === undefined
+            ? null
+            : values.preferred_physician,
+        preferred_date: dayjs(values.preferred_date).format(
+          'YYYY-MM-DD HH:mm:ss'
+        ),
+        laboratory:
+          values.laboratory === undefined
+            ? null
+            : values.laboratory.join(' - '),
+        radiology:
+          values.radiology === undefined ? null : values.radiology.join(' - '),
+        opd: values.opd === undefined ? null : values.opd.join(' - '),
+        others: values.others === undefined ? null : values.others.join(' - '),
+        addional_message:
+          values.addional_message === undefined
+            ? null
+            : values.addional_message,
+      };
+      const response = await submitAppointment(payload);
+      messageApi.success(response);
+      appointmentForm.resetFields();
+    } catch (err: any) {
+      if (err.response) {
+        messageApi.error(err.response?.data);
+      } else {
+        messageApi.error('Something went wrong please try again later');
+      }
+      console.log(err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getLabServices = async () => {
-    //   try {
-    //     const res = await getAppointmentServices('lab');
-    //     const lab = res.map((item) => ({
-    //       label: item.name,
-    //       value: item.name,
-    //     }));
-    //     setLab(lab);
-    //   } catch (err: any) {
-    //     console.log(err);
-    //   }
+    try {
+      const res = await getAppointmentServices('lab');
+      const lab = res.map((item) => ({
+        label: item.name,
+        value: item.name,
+      }));
+      setLab(lab);
+    } catch (err: any) {
+      console.log(err);
+    }
   };
 
   const getRadiologyServices = async () => {
-    //   try {
-    //     const res = await getAppointmentServices('radiology');
-    //     const lab = res.map((item) => ({
-    //       label: item.name,
-    //       value: item.name,
-    //     }));
-    //     setRadiology(lab);
-    //   } catch (err: any) {
-    //     console.log(err);
-    //   }
+    try {
+      const res = await getAppointmentServices('radiology');
+      const lab = res.map((item) => ({
+        label: item.name,
+        value: item.name,
+      }));
+      setRadiology(lab);
+    } catch (err: any) {
+      console.log(err);
+    }
   };
   const getOpdServices = async () => {
-    //   try {
-    //     const res = await getAppointmentServices('opd');
-    //     const lab = res.map((item) => ({
-    //       label: item.name,
-    //       value: item.name,
-    //     }));
-    //     setOpd(lab);
-    //   } catch (err: any) {
-    //     console.log(err);
-    //   }
+    try {
+      const res = await getAppointmentServices('opd');
+      const lab = res.map((item) => ({
+        label: item.name,
+        value: item.name,
+      }));
+      setOpd(lab);
+    } catch (err: any) {
+      console.log(err);
+    }
   };
   const getOthersServices = async () => {
-    //   try {
-    //     const res = await getAppointmentServices('others');
-    //     const lab = res.map((item) => ({
-    //       label: item.name,
-    //       value: item.name,
-    //     }));
-    //     setOthers(lab);
-    //   } catch (err: any) {
-    //     console.log(err);
-    //   }
+    try {
+      const res = await getAppointmentServices('others');
+      const lab = res.map((item) => ({
+        label: item.name,
+        value: item.name,
+      }));
+      setOthers(lab);
+    } catch (err: any) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -305,11 +310,7 @@ export default function AppointmentClientForm() {
                     },
                   ]}
                 >
-                  <DatePicker
-                    showNow={false}
-                    className="w-full"
-                    showToday={false}
-                  />
+                  <DatePicker showNow={false} className="w-full" />
                 </Form.Item>
 
                 <Form.Item
@@ -346,7 +347,7 @@ export default function AppointmentClientForm() {
             </Card>
 
             <Form.Item
-              name="addional_message"
+              name="additional_message"
               label="Additional Message (optional)"
             >
               <Input.TextArea />

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import { listsTypes } from './services';
 
 interface NavServicesItemTypes {
   label: string;
@@ -29,94 +30,11 @@ const navServicesItems: NavServicesItemTypes[] = [
   },
 ];
 
-interface listsTypes {
-  id: number;
-  src: string;
-  alt: string;
-  title: string;
-  hash_link: string;
+interface ServiceItemsProps {
+  data: listsTypes[];
 }
-const lists: listsTypes[] = [
-  {
-    id: 1,
-    src: '/icons/service-icons/stone-cancer.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Stone Cancer',
-    hash_link: '/',
-  },
-  {
-    id: 2,
-    src: '/icons/service-icons/pedeiatrics.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Pediatric Intensive Care Unit',
-    hash_link: '/',
-  },
-  {
-    id: 3,
-    src: '/icons/service-icons/laparoscopy.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Laparoscopy Unit',
-    hash_link: '/',
-  },
-  {
-    id: 4,
-    src: '/icons/service-icons/hemodialysis.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Hemodialysis',
-    hash_link: '/',
-  },
-  {
-    id: 5,
-    src: '/icons/service-icons/cancer-center.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Cancer Center',
-    hash_link: '/',
-  },
-  {
-    id: 6,
-    src: '/icons/service-icons/drug-testing.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Drug Testing Center',
-    hash_link: '/',
-  },
-  {
-    id: 7,
-    src: '/icons/service-icons/icu.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Intensive & Critical Unit',
-    hash_link: '/',
-  },
-  {
-    id: 8,
-    src: '/icons/service-icons/eye-center.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Eye Center',
-    hash_link: '/',
-  },
-  {
-    id: 9,
-    src: '/icons/service-icons/endoscopy.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Endoscopy Unit',
-    hash_link: '/',
-  },
-  {
-    id: 10,
-    src: '/icons/service-icons/neonatal.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Neonatal Intensive Unit',
-    hash_link: '/',
-  },
-  {
-    id: 11,
-    src: '/icons/service-icons/ptor.svg',
-    alt: 'METRO LEMERY MEDICAL CENTER IMAGE',
-    title: 'Physical Therapy Orthopedic Rehabilitation Center',
-    hash_link: '/',
-  },
-];
 
-export default function ServiceItems() {
+export default function ServiceItems({ data }: ServiceItemsProps) {
   const router = useRouter();
   return (
     <div className="py-28">
@@ -147,7 +65,7 @@ export default function ServiceItems() {
           </ul>
         </div>
         <div className="px-5 lg:col-span-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {lists.map((list, i) => (
+          {data.map((list, i) => (
             <div
               className="cursor-pointer"
               onClick={() => {
@@ -159,8 +77,8 @@ export default function ServiceItems() {
             >
               <div className="w-full h-28 relative md:h-20">
                 <Image
-                  src={list.src}
-                  alt={list.alt}
+                  src={list.icon}
+                  alt={list.name}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   style={{
@@ -170,7 +88,7 @@ export default function ServiceItems() {
                 />
               </div>
               <p className="text-center text-lg md:text-base text-primary pt-3">
-                {list.title}
+                {list.name}
               </p>
             </div>
           ))}

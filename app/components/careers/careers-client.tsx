@@ -37,11 +37,7 @@ export default function CareersClient({ data }: CareersClientProps) {
           <Empty />
         ) : (
           filteredCareers.map((career, i) => (
-            <Link
-              key={i}
-              href={`/careers/${career.id}/${career.slug}`}
-              className="group flex flex-col lg:flex-row"
-            >
+            <div key={i} className="group flex flex-col lg:flex-row">
               <div className="bg-milk py-5 px-4 grow rounded-t-md lg:rounded-tr-none lg:rounded-bl-md">
                 <div>
                   <h2 className="text-primary font-semibold text-xl pb-5 uppercase">
@@ -61,12 +57,15 @@ export default function CareersClient({ data }: CareersClientProps) {
                   </div>
                 </div>
               </div>
-              <p className="grid justify-center py-3 border-2 bg-milk group-hover:bg-gray-200 flex-shrink-0 lg:border-0 items-center lg:px-5 rounded-b-md lg:rounded-bl-none lg:rounded-tr-md">
+              <Link
+                href={`/careers/${career.id}/${career.slug}`}
+                className="grid justify-center py-3 border-2 bg-milk group-hover:bg-gray-200 flex-shrink-0 lg:border-0 items-center lg:px-5 rounded-b-md lg:rounded-bl-none lg:rounded-tr-md"
+              >
                 <span className="group-hover:underline underline-offset-2 group-hover:text-primary">
                   View Details
                 </span>
-              </p>
-            </Link>
+              </Link>
+            </div>
           ))
         )}
       </div>

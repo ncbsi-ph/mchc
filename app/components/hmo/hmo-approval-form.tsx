@@ -1,5 +1,7 @@
 'use client';
 
+import { HMOTypes } from '@/app/(general)/hmo/accredited-hmo/page';
+import { HmoApprovalReq, sendHmoApprovalReq, uploadImage } from '@/app/api';
 import { ComponentSize } from '@/app/helpers';
 import {
   Button,
@@ -8,19 +10,25 @@ import {
   DatePicker,
   Form,
   Input,
+  Select,
   Upload,
   UploadFile,
   UploadProps,
   notification,
 } from 'antd';
+import dayjs from 'dayjs';
 import Link from 'next/link';
 import { useState } from 'react';
 import { GrFormUpload } from 'react-icons/gr';
 
+interface RequestFormProps {
+  hmo: HMOTypes[];
+}
+
 const acceptedFormats = ['image/png', 'image/jpeg', 'image/jpg'];
 const DATE_FORMAT = 'MM/DD/YYYY';
 
-export default function HMOApprovalForm() {
+export default function HMOApprovalForm({ hmo }: RequestFormProps) {
   const [healthCardList, setHealthCardList] = useState<UploadFile[] | any>();
   const [validIdList, setValidIdList] = useState<UploadFile[] | any>();
   const [isLoading, setIsLoading] = useState(false);
@@ -42,54 +50,54 @@ export default function HMOApprovalForm() {
     setValidIdList(newFileList);
   };
   const handleSubmit = async (values: any) => {
-    //   try {
-    //     setIsLoading(true);
-    //     const _healthCardFileList = new FormData();
-    //     const _validIdFileList = new FormData();
-    //     _healthCardFileList.append('file', healthCardList[0].originFileObj);
-    //     _validIdFileList.append('file', validIdList[0].originFileObj);
-    //     const _healthcardUploadRes = await uploadImage(
-    //       _healthCardFileList,
-    //       'hmo'
-    //     );
-    //     const _validIdUploadRes = await uploadImage(_validIdFileList, 'hmo');
-    //     const payload: HmoApprovalReq = {
-    //       fname: values.fname,
-    //       mname: values.mname,
-    //       lname: values.lname,
-    //       date_of_birth: dayjs(values.date_of_birth).format(DATE_FORMAT),
-    //       email: values.email,
-    //       contact_no: values.contact_no,
-    //       hmo_provider: values.hmo_provider,
-    //       company_name: values.company_name,
-    //       health_card: _healthcardUploadRes,
-    //       valid_id: _validIdUploadRes,
-    //     };
-    //     const response = await sendHmoApprovalReq(payload);
-    //     api.success({
-    //       message: response,
-    //       description:
-    //         'Your HMO approval request has been received and successfully logged into our system. Our team is now reviewing the details provided.',
-    //     });
-    //     hmoapprovalForm.resetFields();
-    //     setHealthCardList([]);
-    //     setValidIdList([]);
-    //   } catch (err: any) {
-    //     if (err.response) {
-    //       api.error({
-    //         message: err.response?.data,
-    //         description: 'Something went wrong please try again later',
-    //       });
-    //     } else {
-    //       api.error({
-    //         message: err.message,
-    //         description: 'Something went wrong please try again later',
-    //       });
-    //     }
-    //     console.log(err);
-    //   } finally {
-    //     setIsLoading(false);
-    //   }
+    try {
+      setIsLoading(true);
+      const _healthCardFileList = new FormData();
+      const _validIdFileList = new FormData();
+      _healthCardFileList.append('file', healthCardList[0].originFileObj);
+      _validIdFileList.append('file', validIdList[0].originFileObj);
+      const _healthcardUploadRes = await uploadImage(
+        _healthCardFileList,
+        'hmo'
+      );
+      const _validIdUploadRes = await uploadImage(_validIdFileList, 'hmo');
+      const payload: HmoApprovalReq = {
+        fname: values.fname,
+        mname: values.mname,
+        lname: values.lname,
+        date_of_birth: dayjs(values.date_of_birth).format(DATE_FORMAT),
+        email: values.email,
+        contact_no: values.contact_no,
+        hmo_provider: values.hmo_provider,
+        company_name: values.company_name,
+        health_card: _healthcardUploadRes,
+        valid_id: _validIdUploadRes,
+      };
+      const response = await sendHmoApprovalReq(payload);
+      api.success({
+        message: response,
+        description:
+          'Your HMO approval request has been received and successfully logged into our system. Our team is now reviewing the details provided.',
+      });
+      hmoapprovalForm.resetFields();
+      setHealthCardList([]);
+      setValidIdList([]);
+    } catch (err: any) {
+      if (err.response) {
+        api.error({
+          message: err.response?.data,
+          description: 'Something went wrong please try again later',
+        });
+      } else {
+        api.error({
+          message: err.message,
+          description: 'Something went wrong please try again later',
+        });
+      }
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <div>
@@ -212,13 +220,13 @@ export default function HMOApprovalForm() {
                 },
               ]}
             >
-              {/* <Select
-              options={hmo.map((item) => ({
-                value: item.name,
-                label: item.name,
-              }))}
-              getPopupContainer={(trigger) => trigger.parentElement}
-            /> */}
+              <Select
+                options={hmo.map((item) => ({
+                  value: item.name,
+                  label: item.name,
+                }))}
+                getPopupContainer={(trigger) => trigger.parentElement}
+              />
             </Form.Item>
 
             <Form.Item

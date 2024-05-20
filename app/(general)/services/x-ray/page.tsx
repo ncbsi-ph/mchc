@@ -6,34 +6,22 @@ export interface XRayDataTypes {
   name: string;
 }
 
-const xrayData: XRayDataTypes[] = [
-  {
-    id: 1,
-    name: 'Abdomen APL',
-  },
-  {
-    id: 2,
-    name: 'Abdomen Upright	',
-  },
-  {
-    id: 3,
-    name: 'Barium Edema',
-  },
-  {
-    id: 4,
-    name: 'Chest APL Adult',
-  },
-  {
-    id: 5,
-    name: 'Facial Bone (Skull AP / Waters / Bi.Lateral)',
-  },
-  {
-    id: 6,
-    name: '	Lumbo-sacral APL/O',
-  },
-];
-export default function XRay() {
+const getXray = async (): Promise<XRayDataTypes[]> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}service/radiology`,
+    {
+      headers: {
+        'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+      },
+      cache: 'no-store',
+    }
+  );
+  if (!res.ok) throw new Error('failed to fetch data');
+  return res.json();
+};
+export default async function XRay() {
   const pageTitle = 'X-RAY';
+  const xrayData = await getXray();
   return (
     <>
       <Breadcrumbs

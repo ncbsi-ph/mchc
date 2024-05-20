@@ -1,11 +1,11 @@
 'use client';
 
-import { LabDataTypes } from '@/app/(general)/services/laboratory/page';
+import { LaboratoryTypes } from '@/app/(general)/services/laboratory/page';
 import { Empty, Input, Pagination } from 'antd';
 import { useState } from 'react';
 
 interface LaboratoryClientProps {
-  data: LabDataTypes[];
+  data: LaboratoryTypes[];
 }
 
 const ITEMS_PER_PAGE = 20;
@@ -14,7 +14,7 @@ export default function LaboratoryClient({ data }: LaboratoryClientProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const filteredData = data.filter((service: LabDataTypes) =>
+  const filteredData = data.filter((service: LaboratoryTypes) =>
     service.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

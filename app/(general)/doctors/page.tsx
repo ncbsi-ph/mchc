@@ -1,5 +1,6 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import DoctorsClient from '@/app/components/doctors/doctors-client';
+import { Metadata } from 'next';
 
 interface Specialties {
   id: number;
@@ -18,35 +19,42 @@ export interface DoctorsTypes {
   specialty: Specialties[];
 }
 
-const doctorsData: DoctorsTypes[] = [
-  {
-    id: 0,
-    fname: 'ABIGAIL',
-    mname: null,
-    lname: 'BAGSIT-BUROG',
-    schedule: 'MONDAY TO SATURDAY EXCEPT THURSDAY 10:00AM TO 2:00 PM',
-    secretary_name: 'MARIBETH ZALAMEDA',
-    secretary_contact: '0905-692-1087',
-    img: 'https://i.imgur.com/Ycfi8RS.png',
-    specialty: [
-      {
-        id: 0,
-        doctorId: 0,
-        specialty: 'PEDIATRICS',
-      },
-    ],
-  },
-];
+export const metadata: Metadata = {
+  title: 'Doctors',
+  description: 'Metro Calaca Hospital Corp  list of doctors',
+};
 
-const specialties: string[] = ['PEDIATRICS'];
+const getDoctors = async (): Promise<DoctorsTypes[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}doctors`, {
+    headers: {
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+    },
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('failed to fetch data');
+  return res.json();
+};
 
-export default function Doctors() {
+const getSpecialties = async (): Promise<string[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}specialties`, {
+    headers: {
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+    },
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('failed to fetch data');
+  return res.json();
+};
+
+export default async function Doctors() {
   const pageTitle = 'Doctors';
+  const doctors = await getDoctors();
+  const specialties = await getSpecialties();
   return (
     <>
       <Breadcrumbs items={[{ title: pageTitle }]} title={pageTitle} />
       <section className="container my-28">
-        <DoctorsClient doctors={doctorsData} specialties={specialties} />
+        <DoctorsClient doctors={doctors} specialties={specialties} />
       </section>
     </>
   );

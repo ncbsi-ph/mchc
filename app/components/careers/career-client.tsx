@@ -1,5 +1,6 @@
 'use client';
 import { CareerTypes } from '@/app/(general)/careers/[...slug]/page';
+import { JobApplication, sendJobApplication, uploadImage } from '@/app/api';
 import { ComponentSize } from '@/app/helpers';
 
 import {
@@ -114,43 +115,43 @@ const ApplicationForm = ({ jobTitle }: ApplicationFormProps) => {
   };
 
   const handleSubmit = async (values: any) => {
-    //   try {
-    //     setIsLoading(true);
-    //     const _fileList = new FormData();
-    //     _fileList.append('file', fileList[0].originFileObj);
-    //     const _uploadRes = await uploadImage(_fileList, 'career');
-    //     const payload: JobApplication = {
-    //       fname: values.fname,
-    //       lname: values.lname,
-    //       email: values.email,
-    //       contact_no: values.contact_no,
-    //       attachment: _uploadRes,
-    //       job_position: jobTitle,
-    //     };
-    //     const response = await sendJobApplication(payload);
-    //     api.success({
-    //       message: response,
-    //       description:
-    //         'Your job application has been received and successfully logged into our system. Our team is now reviewing the details provided.',
-    //     });
-    //     careerForm.resetFields();
-    //     setFileList([]);
-    //   } catch (err: any) {
-    //     if (err.response) {
-    //       api.error({
-    //         message: err.response?.data,
-    //         description: 'Something went wrong please try again later',
-    //       });
-    //     } else {
-    //       api.error({
-    //         message: err.message,
-    //         description: 'Something went wrong please try again later',
-    //       });
-    //     }
-    //     console.log(err);
-    //   } finally {
-    //     setIsLoading(false);
-    //   }
+    try {
+      setIsLoading(true);
+      const _fileList = new FormData();
+      _fileList.append('file', fileList[0].originFileObj);
+      const _uploadRes = await uploadImage(_fileList, 'career');
+      const payload: JobApplication = {
+        fname: values.fname,
+        lname: values.lname,
+        email: values.email,
+        contact_no: values.contact_no,
+        attachment: _uploadRes,
+        job_position: jobTitle,
+      };
+      const response = await sendJobApplication(payload);
+      api.success({
+        message: response,
+        description:
+          'Your job application has been received and successfully logged into our system. Our team is now reviewing the details provided.',
+      });
+      careerForm.resetFields();
+      setFileList([]);
+    } catch (err: any) {
+      if (err.response) {
+        api.error({
+          message: err.response?.data,
+          description: 'Something went wrong please try again later',
+        });
+      } else {
+        api.error({
+          message: err.message,
+          description: 'Something went wrong please try again later',
+        });
+      }
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
   const validatePhoneNumber = (rule: any, value: string) => {
     const phoneNumber = String(value);

@@ -9,16 +9,20 @@ export interface HMOTypes {
   logo: string;
 }
 
-const data: HMOTypes[] = [
-  {
-    id: 0,
-    name: 'Avega',
-    logo: 'https://metrosjmc.com.ph/static/hmo/AVEGA.webp',
-  },
-];
+const getHmo = async (): Promise<HMOTypes[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}about/hmo`, {
+    headers: {
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+    },
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('failed to fetch data');
+  return res.json();
+};
 
-export default function AccreditedHMO() {
+export default async function AccreditedHMO() {
   const pageTitle = 'Accredited HMO';
+  const data = await getHmo();
   return (
     <>
       <Breadcrumbs

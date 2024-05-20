@@ -1,8 +1,21 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import HMOApprovalForm from '@/app/components/hmo/hmo-approval-form';
+import { HMOTypes } from '../accredited-hmo/page';
 
-export default function HMOApproval() {
+const getHmo = async (): Promise<HMOTypes[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}about/hmo`, {
+    headers: {
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+    },
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('failed to fetch data');
+  return res.json();
+};
+
+export default async function HMOApproval() {
   const pageTitle = 'HMO Approval';
+  const hmo = await getHmo();
   return (
     <>
       <Breadcrumbs
@@ -24,7 +37,7 @@ export default function HMOApproval() {
           </div>
         </div>
 
-        <HMOApprovalForm />
+        <HMOApprovalForm hmo={hmo} />
       </section>
     </>
   );

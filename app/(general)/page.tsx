@@ -1,3 +1,4 @@
+import HomeBanner from '../components/home/HomeBanner';
 import About from '../components/home/about';
 import BannerCarousel from '../components/home/bannerCarousel';
 import Contact from '../components/home/contact';
@@ -10,7 +11,7 @@ import ShortcutBtn from '../components/shortcut-btn';
 export default function Home() {
   return (
     <section>
-      <BannerCarousel />
+      <HomeBanner />
       <ShortcutBtn />
       <About />
       <Services />

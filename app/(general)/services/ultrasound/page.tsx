@@ -5,36 +5,20 @@ export interface UltrasoundDataTypes {
   id: number;
   name: string;
 }
+const getUltrasound = async (): Promise<UltrasoundDataTypes[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}service/opd`, {
+    headers: {
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+    },
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('failed to fetch data');
+  return res.json();
+};
 
-const ultrasoundData: UltrasoundDataTypes[] = [
-  {
-    id: 1,
-    name: '24HR HOLTER MONITORING',
-  },
-  {
-    id: 2,
-    name: 'APPENDIX',
-  },
-  {
-    id: 3,
-    name: 'Chest /hemithorax',
-  },
-  {
-    id: 4,
-    name: 'Congenital Anomaly scan (CAS) OB New',
-  },
-  {
-    id: 5,
-    name: 'Gyne - TVS Doppler OB New',
-  },
-  {
-    id: 6,
-    name: 'Paracentesis',
-  },
-];
-
-export default function Ultrasound() {
+export default async function Ultrasound() {
   const pageTitle = 'Ultrasound';
+  const ultrasoundData = await getUltrasound();
   return (
     <>
       <Breadcrumbs

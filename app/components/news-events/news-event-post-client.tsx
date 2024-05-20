@@ -17,7 +17,7 @@ const DATE_FORMAT = 'MMMM DD, YYYY';
 
 export default function NewsEventsPostClient({ data }: SlugClientProps) {
   const pathname = usePathname();
-  const shareUrl = `${process.env.NEXT_PUBLIC_BASE_URL}${pathname}`;
+  const shareUrl = `${process.env.NEXT_PUBLIC_API_URL}${pathname}`;
   return (
     <div className="my-24">
       <div className="flex justify-between items-center">
@@ -51,8 +51,7 @@ export default function NewsEventsPostClient({ data }: SlugClientProps) {
 
       <div className="grid justify-center my-5">
         <Image
-          // src={data.thumbnail}
-          src="https://i.imgur.com/Ycfi8RS.png"
+          src={data.thumbnail}
           width={0}
           height={0}
           sizes="100vw"

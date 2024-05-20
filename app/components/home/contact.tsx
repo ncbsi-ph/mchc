@@ -1,5 +1,6 @@
 'use client';
 
+import { sendContactMail } from '@/app/api';
 import { ComponentSize, CustomBtn, SectionTitle } from '@/app/helpers';
 import { Form, Input, message } from 'antd';
 import { useState } from 'react';
@@ -11,8 +12,8 @@ export default function Contact() {
   const handleSubmit = async (values: any) => {
     try {
       setIsLoading(true);
-      // const response = await sendContactMail(values);
-      // messageApi.success(response, 10);
+      const response = await sendContactMail(values);
+      messageApi.success(response, 10);
       contactForm.resetFields();
     } catch (err: any) {
       if (err.response) {

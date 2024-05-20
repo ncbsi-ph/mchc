@@ -9,17 +9,20 @@ export interface CareersTypes {
   date_modified: string;
 }
 
-const careersData: CareersTypes[] = [
-  {
-    id: '1',
-    title: 'test',
-    slug: 'test',
-    slots: 1,
-    date_modified: 'October 10, 2024',
-  },
-];
+const getCareers = async (): Promise<CareersTypes[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}careers`, {
+    headers: {
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+    },
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('failed to fetch data');
 
-export default function Careers() {
+  return res.json();
+};
+
+export default async function Careers() {
+  const careersData = await getCareers();
   const pageTitle = 'Careers';
   return (
     <>
