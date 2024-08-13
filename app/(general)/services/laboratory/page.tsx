@@ -9,7 +9,7 @@ export interface LaboratoryTypes {
 const getLab = async (): Promise<LaboratoryTypes[]> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}service/lab`, {
     headers: {
-      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
     },
     cache: 'no-store',
   });

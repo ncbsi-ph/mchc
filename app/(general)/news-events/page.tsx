@@ -16,7 +16,7 @@ const getHomeNews = async (): Promise<NewsEventsTypes[]> => {
     `${process.env.NEXT_PUBLIC_API_URL}home/news-events`,
     {
       headers: {
-        'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+        'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
       },
       cache: 'no-store',
     }

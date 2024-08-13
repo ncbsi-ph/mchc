@@ -18,7 +18,7 @@ const config: Config = {
       fontFamily: {
         inter: ['var(--font-inter)'],
         montserrat: ['var(--font-montserrat)'],
-        'roboto-mono': ['var(--font-roboto-mono)'],
+        roboto_mono: ['var(--font-roboto-mono)'],
       },
       animation: {
         marquee: 'marquee 25s linear infinite',

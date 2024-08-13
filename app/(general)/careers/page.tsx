@@ -12,7 +12,7 @@ export interface CareersTypes {
 const getCareers = async (): Promise<CareersTypes[]> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}careers`, {
     headers: {
-      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
     },
     cache: 'no-store',
   });

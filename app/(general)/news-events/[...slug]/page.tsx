@@ -1,26 +1,71 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
-import { NewsEventsTypes } from '../page';
-import Link from 'next/link';
 import NewsEventsPostClient from '@/app/components/news-events/news-event-post-client';
+import { Metadata } from 'next';
+import Link from 'next/link';
 
 type Params = {
   params: {
     slug: [number, string];
   };
 };
-const post: NewsEventsTypes = {
-  id: 1,
-  title: 'NEW REHAB FACILITY OPENS',
-  slug: 'new-rehab-facility-center',
-  description:
-    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam sit commodi eum quas fugit, sapiente corporis! Aut fuga possimus necessitatibus reprehenderit dolores officiis dolore ipsa! Exercitationem voluptate maiores inventore consequuntur.',
-  date: '10/10/2024',
-  type: 'news',
-  thumbnail: 'string',
+
+export interface NewsItemTypes {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  date: string;
+  type: 'news' | 'events' | 'promo';
+  thumbnail: string;
+}
+
+const getSingleNewsEvents = async (id: number): Promise<NewsItemTypes> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}news-event/${id}`,
+    {
+      headers: {
+        'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
+      },
+      cache: 'no-store',
+    }
+  );
+  if (!res.ok) throw new Error('failed to fetch data');
+
+  return res.json();
 };
-export default function NewsEventsPost({ params: { slug } }: Params) {
-  // const news_event = await getSingleNewsEvents(slug[0]);
-  const pageTitle = 'NEW REHAB FACILITY OPENS';
+
+export async function generateMetadata({
+  params: { slug },
+}: Params): Promise<Metadata> {
+  let news_event = await getSingleNewsEvents(slug[0]);
+
+  return {
+    title: news_event.title,
+    description: news_event.description,
+    openGraph: {
+      title: news_event.title,
+      description: news_event.description,
+      type: 'article',
+      publishedTime: news_event.date,
+      url: `${process.env.BASE_URL}news-events/${slug[0]}/${news_event.slug}`,
+      images: [
+        {
+          url: news_event.thumbnail,
+        },
+      ],
+    },
+    twitter: {
+      title: news_event.title,
+      description: news_event.description,
+      images: [news_event.thumbnail],
+    },
+  };
+}
+
+export default async function NewsEvent({ params: { slug } }: Params) {
+  const news_event = await getSingleNewsEvents(slug[0]);
+  const pageTitle = news_event.title;
+
   return (
     <>
       <Breadcrumbs
@@ -30,9 +75,7 @@ export default function NewsEventsPost({ params: { slug } }: Params) {
         ]}
         title={pageTitle}
       />
-      <section className="container my-28">
-        <NewsEventsPostClient data={post} />
-      </section>
+      <NewsEventsPostClient data={news_event} />
     </>
   );
 }

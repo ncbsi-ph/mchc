@@ -21,7 +21,7 @@ export default function NavHeader({ children }: { children: React.ReactNode }) {
       <div className="container py-5 flex justify-between items-center">
         <Link href="/">
           <Image
-            src="/onc_logo.jpg"
+            src="/mchc_with_text.png"
             alt="ONC Logo"
             width={190}
             priority

@@ -13,20 +13,22 @@ interface NavServicesItemTypes {
 
 const navServicesItems: NavServicesItemTypes[] = [
   {
+    label: 'Pharmacy Services',
+  },
+  {
+    label: 'Emergency Room',
+  },
+  {
     label: 'Laboratory Services',
     link: '/services/laboratory',
   },
   {
-    label: 'Ultrasound',
-    link: '/services/ultrasound',
-  },
-  {
-    label: 'X-Ray',
-    link: '/services/x-ray',
-  },
-  {
-    label: 'CT-Scan',
+    label: 'Radiology and Diagnostic Procedures',
     link: '/services/radiology-diagnostic-procedures',
+  },
+  {
+    label: 'Out-Patient Department',
+    link: '/services/opd',
   },
 ];
 

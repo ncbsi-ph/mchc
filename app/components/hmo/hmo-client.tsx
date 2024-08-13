@@ -1,6 +1,6 @@
 'use client';
 
-import { HMOTypes } from '@/app/(general)/hmo/accredited-hmo/page';
+import { HMOTypes } from '@/app/(general)/hmo-approval/page';
 import { Empty, Input } from 'antd';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -8,6 +8,7 @@ import { useState } from 'react';
 interface HMOClientProps {
   data: HMOTypes[];
 }
+
 export default function HMOClient({ data }: HMOClientProps) {
   const [filteredData, setFilteredData] = useState(data);
 
@@ -18,6 +19,7 @@ export default function HMOClient({ data }: HMOClientProps) {
       )
     );
   };
+
   return (
     <div>
       <div className="py-10">

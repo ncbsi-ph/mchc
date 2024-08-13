@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 const getDoctors = async (): Promise<DoctorsTypes[]> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}doctors`, {
     headers: {
-      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
     },
     cache: 'no-store',
   });
@@ -38,7 +38,7 @@ const getDoctors = async (): Promise<DoctorsTypes[]> => {
 const getSpecialties = async (): Promise<string[]> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}specialties`, {
     headers: {
-      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
     },
     cache: 'no-store',
   });

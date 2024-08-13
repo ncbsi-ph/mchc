@@ -1,6 +1,6 @@
 'use client';
 
-import { HMOTypes } from '@/app/(general)/hmo/accredited-hmo/page';
+import { HMOTypes } from '@/app/(general)/hmo-approval/page';
 import { HmoApprovalReq, sendHmoApprovalReq, uploadImage } from '@/app/api';
 import { ComponentSize } from '@/app/helpers';
 import {

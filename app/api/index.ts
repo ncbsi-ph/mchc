@@ -7,6 +7,15 @@ const api = axios.create({
     'x-api-key': process.env.NEXT_PUBLIC_API_KEY,
   },
 });
+
+const authorizedConfig = (token: string) => {
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+};
+
 export interface ContactTypes {
   fname: string;
   lname: string;
@@ -96,4 +105,131 @@ export const sendJobApplication = async (
   payload: JobApplication
 ): Promise<string> => {
   return await api.post('job-application', payload).then((res) => res.data);
+};
+
+interface ChangePasswordPayload {
+  currentPass: string;
+  newPass: string;
+  email: string;
+}
+
+export const changePassword = async (
+  payload: ChangePasswordPayload,
+  type: string,
+  token: string
+): Promise<string> => {
+  return await api
+    .post(`${type}/change-password`, payload, authorizedConfig(token))
+    .then((res) => res.data);
+};
+export const forgotPassword = async (
+  email: string,
+  type: string
+): Promise<string> => {
+  return await api
+    .post(`forgot-password/${type}`, email)
+    .then((res) => res.data);
+};
+
+export interface DoctorPatient {
+  id: number;
+  patientno: string;
+  patientname: string;
+}
+export const getDoctorsPatient = async (
+  doctorCode: string,
+  token: string
+): Promise<DoctorPatient[]> => {
+  return await api
+    .get(`doctor/patients/${doctorCode}`, authorizedConfig(token))
+    .then((res) => res.data);
+};
+
+export const viewProtectedPdf = async (
+  url: string,
+  token: string
+): Promise<void> => {
+  const response = await axios.get(url, {
+    ...authorizedConfig(token),
+    responseType: 'blob', // Ensure response type is set to 'blob' for binary data
+  });
+  const blobUrl = window.URL.createObjectURL(response.data);
+  window.open(blobUrl, '_blank');
+};
+export interface PatientExam {
+  id: number;
+  examination: string;
+  examid: string;
+  filename: string;
+  resultdate: string;
+}
+export const getDoctorPatientExam = async (
+  doctorcode: string,
+  patientno: string,
+  token: string
+): Promise<PatientExam[]> => {
+  return await api
+    .get(`doctor/patients/${doctorcode}/${patientno}`, authorizedConfig(token))
+    .then((res) => res.data);
+};
+
+export interface DoctorRegister {
+  fname: string;
+  mname: string;
+  lname: string;
+  doctorcode: string;
+  email: string;
+  contactno: string;
+  password: string;
+}
+
+export const doctorRegister = async (
+  payload: DoctorRegister
+): Promise<string> => {
+  return await api.post('doctor/register', payload).then((res) => res.data);
+};
+
+export const getPatientExam = async (
+  patietno: string,
+  token: string
+): Promise<PatientExam[]> => {
+  return await api
+    .get(`patient/${patietno}`, authorizedConfig(token))
+    .then((res) => res.data);
+};
+
+export interface PatientRegister {
+  patientno: string;
+  lastname: string;
+  firstname: string;
+  middlename: string;
+  email: string;
+  contactno: string;
+  password: string;
+}
+
+export const patientRegister = async (
+  payload: PatientRegister
+): Promise<string> => {
+  return await api.post('patient/register', payload).then((res) => res.data);
+};
+
+export const verifyDoctor = async (token: string): Promise<string> => {
+  return await api.post(`verify-email/doctor/${token}`).then((res) => res.data);
+};
+
+export const verifyPatient = async (token: string): Promise<string> => {
+  return await api
+    .post(`verify-email/patient/${token}`)
+    .then((res) => res.data);
+};
+
+export const resetPassword = async (
+  token: string,
+  newPassword: string,
+  type: string
+): Promise<string> => {
+  return await api
+    .post(`forgot-password/${type}/${token}`, { newPassword: newPassword })
+    .then((res) => res.data);
 };

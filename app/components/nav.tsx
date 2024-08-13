@@ -20,8 +20,40 @@ export default function Navigation() {
       key: '/',
     },
     {
-      label: <Link href="/about">About Us</Link>,
-      key: '/about',
+      label: (
+        <p className="flex items-center gap-x-1 md:hover:text-white transition ease-in-out delay-50">
+          About
+          <BiChevronDown className="text-lg hidden md:block" />
+        </p>
+      ),
+      key: 'sub1',
+      theme: 'light',
+      children: [
+        {
+          label: <Link href="/about/history">History</Link>,
+          key: '/about/history',
+        },
+        {
+          label: <Link href="/about/vision-mission">Vision & Mission</Link>,
+          key: '/about/vision-mission',
+        },
+        {
+          label: <Link href="/about/company-profile">Company Profile</Link>,
+          key: '/about/company-profile',
+        },
+        {
+          label: (
+            <Link href="/about/officers-board-directors">
+              Officers & Board Directors
+            </Link>
+          ),
+          key: '/about/officers-board-directors',
+        },
+        {
+          label: <Link href="/about/hmo">HMO</Link>,
+          key: '/about/hmo',
+        },
+      ],
     },
     {
       label: (
@@ -38,16 +70,16 @@ export default function Navigation() {
           key: '/services/laboratory',
         },
         {
-          label: <Link href="/services/x-ray">X-RAY</Link>,
-          key: '/services/x-ray',
+          label: (
+            <Link href="/services/radiology-diagnostic-procedures">
+              Radiology & Diagnostic Procedures
+            </Link>
+          ),
+          key: '/services/radiology-diagnostic-procedures',
         },
         {
-          label: <Link href="/services/ultrasound">Ultrasound</Link>,
-          key: '/services/ultrasound',
-        },
-        {
-          label: <Link href="/services/ct-scan">CT-Scan</Link>,
-          key: '/services/ct-scan',
+          label: <Link href="/services/opd">Out-Patient Department</Link>,
+          key: '/services/opd',
         },
         {
           label: <Link href="/services/others">Others</Link>,
@@ -59,27 +91,6 @@ export default function Navigation() {
       label: <Link href="/doctors">Doctors</Link>,
       key: '/doctors',
     },
-    {
-      label: (
-        <p className="flex items-center gap-x-1 md:hover:text-white transition ease-in-out delay-50">
-          HMO
-          <BiChevronDown className="text-lg hidden md:block" />
-        </p>
-      ),
-      key: '/sub3',
-      theme: 'light',
-      children: [
-        {
-          label: <Link href="/hmo/accredited-hmo">Accredited HMO</Link>,
-          key: '/hmo/accredited-hmo',
-        },
-        {
-          label: <Link href="/hmo/approval">HMO Approval</Link>,
-          key: '/hmo/approval',
-        },
-      ],
-    },
-
     {
       label: <Link href="/appointment">Appointment</Link>,
       key: '/appointment',
@@ -96,7 +107,7 @@ export default function Navigation() {
         {
           label: (
             <Link href="/portal/doctor" target="_blank">
-              Doctor&apos;s Portal
+              Doctor's Portal
             </Link>
           ),
           key: '/portal/doctor',
@@ -105,7 +116,7 @@ export default function Navigation() {
         {
           label: (
             <Link href="/portal/patient" target="_blank">
-              Patient&apos;s Portal
+              Patient's Portal
             </Link>
           ),
           key: '/portal/patient',

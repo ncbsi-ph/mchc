@@ -1,5 +1,6 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import CareerClient from '@/app/components/careers/career-client';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 type Params = {
@@ -7,6 +8,41 @@ type Params = {
     slug: [number, string];
   };
 };
+
+const getCareer = async (id: number): Promise<CareerTypes> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}career/${id}`, {
+    headers: {
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
+    },
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('failed to fetch data');
+
+  return res.json();
+};
+
+export async function generateMetadata({
+  params: { slug },
+}: Params): Promise<Metadata> {
+  let career = await getCareer(slug[0]);
+
+  return {
+    title: career.title,
+    description: career.job_summary,
+    openGraph: {
+      title: career.title,
+      description: career.job_summary,
+      type: 'article',
+      publishedTime: career.date_posted,
+      url: `${process.env.BASE_URL}careers/${slug[0]}/${career.slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: career.title,
+      description: career.job_summary,
+    },
+  };
+}
 
 export interface CareerTypes {
   id: number;
@@ -23,24 +59,10 @@ export interface CareerTypes {
   skills: string;
 }
 
-const jobs: CareerTypes = {
-  id: 1,
-  title: 'Software Engineer',
-  slug: 'software-engineer',
-  slots: 3,
-  salary_range: '$60,000 - $100,000',
-  job_type: 'Full-time',
-  date_posted: '2024-05-06',
-  date_modified: '2024-05-06',
-  job_summary: 'Develop and maintain software applications.',
-  educ_attainment: "Bachelor's degree in Computer Science or related field.",
-  work_exp: '2+ years of experience in software development.',
-  skills: 'JavaScript, Python, React, Node.js, SQL',
-};
-export default function Career({ params: { slug } }: Params) {
-  const pageTitle = 'Test';
-  //   const pageTitle = slug[1];
-  //   const career = await getCareer(slug[0]);
+export default async function Career({ params: { slug } }: Params) {
+  // const pageTitle = 'Test';
+  const pageTitle = slug[1];
+  const career = await getCareer(slug[0]);
   return (
     <>
       <Breadcrumbs
@@ -52,7 +74,7 @@ export default function Career({ params: { slug } }: Params) {
       />
 
       <section className="container my-28">
-        <CareerClient data={jobs} />
+        <CareerClient data={career} />
       </section>
     </>
   );

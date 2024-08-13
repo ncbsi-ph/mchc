@@ -10,7 +10,7 @@ export interface CarouselItems {
 const getHomeBanner = async (): Promise<CarouselItems[]> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}home/banner`, {
     headers: {
-      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
     },
     cache: 'no-store',
   });
@@ -19,7 +19,6 @@ const getHomeBanner = async (): Promise<CarouselItems[]> => {
 };
 export default async function HomeBanner() {
   const about = await getHomeBanner();
-  //   console.log(about);
 
   return (
     <>

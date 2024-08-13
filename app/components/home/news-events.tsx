@@ -80,7 +80,7 @@ export default async function NewsEvents() {
                   <div className="line-clamp-3 hidden-img">
                     {parse(latest.description)}
                   </div>
-                  <p className="pt-2 underline text-primary group-hover:text-altPrimary md:text-sm">
+                  <p className="pt-2 underline text-primary group-hover:text-secondary md:text-sm">
                     Read more
                   </p>
                 </div>
@@ -118,7 +118,7 @@ export default async function NewsEvents() {
                       <div className="text-sm font-light line-clamp-2 hidden-img">
                         {parse(item.description)}
                       </div>
-                      <p className="pt-2 underline text-primary group-hover:text-altPrimary md:text-sm">
+                      <p className="pt-2 underline text-primary group-hover:text-secondary md:text-sm">
                         Read more
                       </p>
                     </div>

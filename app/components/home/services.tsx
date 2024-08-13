@@ -6,7 +6,7 @@ export interface listsTypes {
   hash_link: string;
 }
 
-const getHomeBanner = async (): Promise<listsTypes[]> => {
+const getHomeService = async (): Promise<listsTypes[]> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}home/service`, {
     headers: {
       'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
@@ -17,7 +17,7 @@ const getHomeBanner = async (): Promise<listsTypes[]> => {
   return res.json();
 };
 export default async function Services() {
-  const data = await getHomeBanner();
+  const data = await getHomeService();
   return (
     <section className=" bg-altGray">
       <ServiceItems data={data} />
