@@ -356,7 +356,7 @@ export default function HMOApprovalForm({ hmo }: RequestFormProps) {
                 I agree to the{' '}
                 <Link
                   href="/terms-and-conditions"
-                  className="text-yellow underline cursor-pointer"
+                  className="text-secondary underline cursor-pointer"
                   target="_blank"
                 >
                   Terms and Conditions
@@ -364,7 +364,7 @@ export default function HMOApprovalForm({ hmo }: RequestFormProps) {
                 and the{' '}
                 <Link
                   href="/privacy-policy"
-                  className="text-yellow underline cursor-pointer"
+                  className="text-secondary underline cursor-pointer"
                   target="_blank"
                 >
                   Privacy Policy

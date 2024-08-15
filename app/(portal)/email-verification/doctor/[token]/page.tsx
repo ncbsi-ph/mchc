@@ -72,7 +72,7 @@ export default function VerifyDoctor({ params: { token } }: Params) {
           title="Email Verification Successful"
           subTitle={response}
           extra={[
-            <Link href="/portal/doctor/login">
+            <Link href="/portal/doctor/login" key="login-link">
               <Button type="primary" key="console">
                 Click here to go in the login page
               </Button>

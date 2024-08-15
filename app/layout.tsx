@@ -39,7 +39,7 @@ export default function RootLayout({
               token: {
                 colorPrimary: '#E18E26',
                 fontFamily: 'Inter',
-                colorTextSecondary: '#5B741A',
+                colorTextSecondary: '#1F75FE',
               },
               components: {
                 Collapse: {
@@ -47,21 +47,22 @@ export default function RootLayout({
                 },
                 Menu: {
                   darkItemBg: '#E18E26',
-                  darkItemSelectedColor: '#5B741A !important',
+                  darkItemSelectedColor: '#1F75FE !important',
                   itemSelectedBg: '#E18E26 !important',
-                  itemSelectedColor: '#FAE341 !important',
+                  itemSelectedColor: '#1F75FE !important',
+                  darkItemColor: '#ffffff',
                 },
                 Breadcrumb: {
                   itemColor: '#FFFFFF',
                   linkColor: '#FFFFFF',
                   linkHoverColor: '#FFFFFF',
                   colorBgTextHover: '#E18E26',
-                  lastItemColor: '#FFFF00',
-                  separatorColor: '#FFFF00',
+                  lastItemColor: '#1F75FE',
+                  separatorColor: '#FFFFFF',
                 },
                 Dropdown: {
-                  controlItemBgActive: '#eff71a',
-                  controlItemBgActiveHover: '#eff71a',
+                  controlItemBgActive: '#1F75FE',
+                  controlItemBgActiveHover: '#1F75FE',
                 },
               },
             }}

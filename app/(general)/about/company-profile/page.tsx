@@ -11,8 +11,7 @@ interface CompanyProfileTypes {
 
 export const metadata: Metadata = {
   title: 'Company Profile',
-  description:
-    'The Metro Calaca Hospital Corp Expansion Project is a 3-storey    building with 72 - bed capacity within a total land area of Three Thousand Two Hundred Sixty Two(3262) square meter of leased property   embraced by OCT No. p3551 located at Barangay Palanas, Lemery,    Batangas with the following facilities: Emergency Room, Laboratory, Private and Semi - Private Rooms, Pharmacy Nursery, Stockroom, Radiology, Clinic Rooms, Conference Room, Operating Room,  Administrative Office, Canteen and other service facilities/utilities.',
+  description: '/',
 };
 
 const getCompanyProfile = async (): Promise<CompanyProfileTypes> => {

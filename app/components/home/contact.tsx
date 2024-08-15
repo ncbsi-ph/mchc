@@ -118,7 +118,12 @@ export default function Contact() {
         >
           <Input.TextArea placeholder="Message" />
         </Form.Item>
-        <CustomBtn type="primary" htmlType="submit" loading={isLoading}>
+        <CustomBtn
+          type="primary"
+          htmlType="submit"
+          loading={isLoading}
+          className="hover:!bg-secondary"
+        >
           Send Message
         </CustomBtn>
       </Form>

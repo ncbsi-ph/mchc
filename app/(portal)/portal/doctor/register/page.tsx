@@ -2,10 +2,10 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { doctorLog } from '@/app/helpers';
 import { Button, Form, Input, Modal, Tag } from 'antd';
 import { DoctorRegister, doctorRegister } from '@/app/api';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface DoctorFormValues {
   firstName: string;
@@ -41,23 +41,15 @@ export default function RegisterDoctor() {
   const [modal, contextHolder] = Modal.useModal();
   const [isLoading, setIsLoading] = useState(false);
   const [registrationForm] = Form.useForm();
+  const access_token = Cookies.get('mchc_doctor_access_token');
 
   useEffect(() => {
-    const presence = Cookies.get(doctorLog);
-    if (presence) {
-      setIsLoggedIn(true);
+    if (access_token) {
+      router.push('/portal/doctor');
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
-
-  useEffect(() => {
-    const presence = Cookies.get(doctorLog);
-    if (presence) {
-      setIsLoggedIn(true);
-      router.push('/portal/doctor');
-    }
-  }, [isLoggedIn]);
+  });
 
   const handleLogin = async (values: DoctorFormValues) => {
     try {
@@ -96,9 +88,9 @@ export default function RegisterDoctor() {
               instructions in the email to verify your account.
             </p>
             <p>
-              If you don't receive the email within a few minutes, please check
-              your spam or junk folder. Additionally, ensure that you provided
-              the correct email address during registration.
+              If you don&apos;t receive the email within a few minutes, please
+              check your spam or junk folder. Additionally, ensure that you
+              provided the correct email address during registration.
             </p>
             <p>
               If you encounter any issues or need further assistance, please
@@ -148,7 +140,7 @@ export default function RegisterDoctor() {
       <section className="max-w-2xl grid m-auto min-h-screen content-center ">
         {contextHolder}
         <div className="grid pb-12 justify-center ">
-          <img
+          <Image
             src="/mchc_with_text.png"
             width={250}
             height={0}

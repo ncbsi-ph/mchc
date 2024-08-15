@@ -8,8 +8,12 @@ import { Drawer, Menu, MenuProps } from 'antd';
 import Link from 'next/link';
 import { MdOpenInNew } from 'react-icons/md';
 import { IoMdClose } from 'react-icons/io';
+import { Institutions } from './footer';
 
-export default function Navigation() {
+interface NavigationProps {
+  data: Institutions;
+}
+export default function Navigation({ data }: NavigationProps) {
   let pathname = usePathname() || '/';
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -107,7 +111,7 @@ export default function Navigation() {
         {
           label: (
             <Link href="/portal/doctor" target="_blank">
-              Doctor's Portal
+              Doctor&apos;s Portal
             </Link>
           ),
           key: '/portal/doctor',
@@ -116,7 +120,7 @@ export default function Navigation() {
         {
           label: (
             <Link href="/portal/patient" target="_blank">
-              Patient's Portal
+              Patient&apos;s Portal
             </Link>
           ),
           key: '/portal/patient',
@@ -158,7 +162,7 @@ export default function Navigation() {
   return (
     <section>
       <section>
-        <NavHeader>
+        <NavHeader data={data}>
           <nav className="text-3xl text-altBlack md:hidden">
             <BiMenu
               onClick={showDrawer}

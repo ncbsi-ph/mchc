@@ -4,8 +4,6 @@ import Image from 'next/image';
 import React, { useRef } from 'react';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { CarouselItems } from './HomeBanner';
-import Link from 'next/link';
-import { CustomBtn } from '@/app/helpers';
 
 interface CarouselItemProps {
   carouselItems: CarouselItems[];

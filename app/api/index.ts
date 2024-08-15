@@ -154,7 +154,15 @@ export const viewProtectedPdf = async (
     responseType: 'blob', // Ensure response type is set to 'blob' for binary data
   });
   const blobUrl = window.URL.createObjectURL(response.data);
-  window.open(blobUrl, '_blank');
+  const newWindow = window.open(blobUrl, '_tab');
+  if (!newWindow) {
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = 'protected.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 };
 export interface PatientExam {
   id: number;

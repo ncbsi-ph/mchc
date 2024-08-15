@@ -6,7 +6,6 @@ import { Button, Form, Input, message } from 'antd';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { doctorLog, generateRandomString } from '@/app/helpers';
 import { useRouter } from 'next/navigation';
 import { doctorLogin } from '@/app/api/auth';
 import { useDoctorActions } from '@/app/store';
@@ -22,31 +21,23 @@ export default function DoctorLogin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmittingForgotPass, setIsSubmittingForgotPass] = useState(false);
   const [loginForm] = Form.useForm();
+  const access_token = Cookies.get('mchc_doctor_access_token');
 
   useEffect(() => {
-    const presence = Cookies.get(doctorLog);
-    if (presence) {
-      setIsLoggedIn(true);
+    if (access_token) {
+      router.push('/portal/doctor');
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
-
-  useEffect(() => {
-    const presence = Cookies.get(doctorLog);
-    if (presence) {
-      setIsLoggedIn(true);
-      router.push('/portal/doctor');
-    }
-  }, [isLoggedIn]);
+  });
 
   const handleLogin = async (values: any) => {
     try {
       setIsLoading(true);
       const response = await doctorLogin(values);
-      const { email, doctorcode, token } = response;
+      const { email, doctorcode, token, access_token } = response;
       setDoctor(email, doctorcode, token);
-      Cookies.set(doctorLog, generateRandomString(), {
+      Cookies.set('mchc_doctor_access_token', access_token, {
         path: '/',
         expires: 2,
       });
@@ -156,7 +147,7 @@ export default function DoctorLogin() {
 
             <Link href="/portal/doctor/register">
               <p className="text-primary text-center mt-10 text-xs">
-                Don't have an account yet? Register here
+                Don&apos;t have an account yet? Register here
               </p>
             </Link>
           </Form>

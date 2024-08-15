@@ -6,7 +6,6 @@ import { Button, Form, Input, message } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { generateRandomString, patientLog } from '@/app/helpers';
 import { login } from '@/app/api/auth';
 import { forgotPassword } from '@/app/api';
 import ForgotPassword from '@/app/(portal)/forgotPassword';
@@ -26,31 +25,23 @@ export default function PatientLogin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [forgotpasswordForm] = Form.useForm();
   const [isSubmittingForgotPass, setIsSubmittingForgotPass] = useState(false);
+  const access_token = Cookies.get('mchc_patient_access_token');
 
   useEffect(() => {
-    const presence = Cookies.get(patientLog);
-    if (presence) {
-      setIsLoggedIn(true);
+    if (access_token) {
+      router.push('/portal/patient');
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
-
-  useEffect(() => {
-    const presence = Cookies.get(patientLog);
-    if (presence) {
-      setIsLoggedIn(true);
-      router.push('/portal/patient');
-    }
-  }, [isLoggedIn]);
+  });
 
   const handleLogin = async (values: LoginFormValueTypes) => {
     try {
       setIsLoading(true);
       const response = await login(values, 'patient');
-      const { email, patientno, token } = response;
+      const { email, patientno, token, access_token } = response;
       setUser(email, patientno, token);
-      Cookies.set(patientLog, generateRandomString(), {
+      Cookies.set('mchc_patient_access_token', access_token, {
         path: '/',
         expires: 2,
       });
@@ -154,7 +145,7 @@ export default function PatientLogin() {
 
             <Link href="/portal/patient/register">
               <p className="text-primary text-center mt-10 text-xs">
-                Don't have an account yet? Register here
+                Don&apos;t have an account yet? Register here
               </p>
             </Link>
           </Form>

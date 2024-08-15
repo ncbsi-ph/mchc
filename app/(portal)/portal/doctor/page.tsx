@@ -6,7 +6,6 @@ import HeadBar from '../../headbar';
 import { useDoctor, useDoctorActions } from '@/app/store';
 import { doctorRefreshToken, logout } from '@/app/api/auth';
 import Cookies from 'js-cookie';
-import { doctorLog, generateRandomString } from '@/app/helpers';
 import {
   DoctorPatient,
   PatientExam,
@@ -30,7 +29,6 @@ export default function Doctor() {
   const [changePassForm] = Form.useForm();
   const [isChangeingPass, setIsChangeingPass] = useState(false);
   const { setDoctor } = useDoctorActions();
-  const isLoggedIn = Cookies.get(doctorLog);
   const router = useRouter();
   const [doctorsPatient, setDoctorPatients] = useState<DoctorPatient[]>([]);
   const [filteredDoctorPatient, setFilteredDoctorPatient] = useState<
@@ -41,33 +39,33 @@ export default function Doctor() {
   const [isPatientDataLoading, setIsPatientDataLoading] = useState(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [doctorRecord, setDataRecord] = useState<DoctorPatient>();
+  const access_token = Cookies.get('mchc_doctor_access_token');
 
   const refresh = async () => {
     try {
-      setIsLoading(true);
-      const response = await doctorRefreshToken();
-      const { email, doctorcode, token } = response;
-
-      setDoctor(email, doctorcode, token);
-      setIsLoading(false);
-      Cookies.set(doctorLog, generateRandomString(), {
-        path: '/',
-        expires: 2,
-      });
+      if (access_token) {
+        setIsLoading(true);
+        const response = await doctorRefreshToken(access_token);
+        const { email, doctorcode, token } = response;
+        setDoctor(email, doctorcode, token);
+        setIsLoading(false);
+      } else {
+        router.push('/portal/doctor/login');
+      }
     } catch (err: any) {
       if (err.response) {
         messageApi.error(err.response?.data);
       } else {
         messageApi.error('Something went wrong please try again later');
       }
-      Cookies.remove(doctorLog);
+      Cookies.remove('mchc_doctor_access_token');
       router.push('/portal/doctor/login');
       console.log(err);
     }
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (access_token) {
       refresh();
     } else {
       setIsLoading(true);
@@ -78,7 +76,7 @@ export default function Doctor() {
   const handleLogout = async () => {
     try {
       await logout('doctor');
-      Cookies.remove(doctorLog);
+      Cookies.remove('mchc_doctor_access_token');
       router.push('/portal/doctor/login');
     } catch (err: any) {
       if (err.response) {

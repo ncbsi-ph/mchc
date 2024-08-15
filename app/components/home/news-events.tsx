@@ -129,7 +129,9 @@ export default async function NewsEvents() {
           </div>
           <div className="pt-10 grid lg:justify-items-center">
             <Link href="/news-events">
-              <CustomBtn type="primary">View all News & Events</CustomBtn>
+              <CustomBtn type="primary" className="hover:!bg-secondary">
+                View all News & Events
+              </CustomBtn>
             </Link>
           </div>
         </>

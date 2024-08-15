@@ -4,6 +4,7 @@ const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}result/auth`,
   headers: {
     'Content-Type': 'application/json',
+    'x-api-key': `${[process.env.NEXT_PUBLIC_API_KEY]}`,
   },
   withCredentials: true,
 });
@@ -17,12 +18,14 @@ interface AuthResponseTypes {
   email: string;
   patientno: string;
   token: string;
+  access_token: string;
 }
 
 interface AuthDoctorResponseTypes {
   email: string;
   doctorcode: string;
   token: string;
+  access_token: string;
 }
 
 export const login = async (
@@ -36,10 +39,18 @@ export const logout = async (type: string) => {
   return await api.post(`${type}/logout`, {}).then((res) => res.data);
 };
 
-export const doctorRefreshToken =
-  async (): Promise<AuthDoctorResponseTypes> => {
-    return await api.get(`doctor/refresh-token`, {}).then((res) => res.data);
-  };
+export const doctorRefreshToken = async (
+  cookie: string
+): Promise<AuthDoctorResponseTypes> => {
+  return await api
+    .get(`doctor/refresh-token`, {
+      headers: {
+        Authorization: `Session ${cookie}`,
+      },
+      withCredentials: true,
+    })
+    .then((res) => res.data);
+};
 
 export const doctorLogin = async (
   payload: LoginTypes
@@ -47,7 +58,15 @@ export const doctorLogin = async (
   return await api.post(`doctor/login`, payload).then((res) => res.data);
 };
 export const refreshToken = async (
-  type: string
+  type: string,
+  cookie: string
 ): Promise<AuthResponseTypes> => {
-  return await api.get(`${type}/refresh-token`, {}).then((res) => res.data);
+  return await api
+    .get(`${type}/refresh-token`, {
+      headers: {
+        Authorization: `Session ${cookie}`,
+      },
+      withCredentials: true,
+    })
+    .then((res) => res.data);
 };

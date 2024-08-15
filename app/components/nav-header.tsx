@@ -2,26 +2,31 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaFacebook, FaYoutube } from 'react-icons/fa';
 import { TbMapPin, TbPhoneCall } from 'react-icons/tb';
+import { Institutions } from './footer';
 
-export default function NavHeader({ children }: { children: React.ReactNode }) {
+export default function NavHeader({
+  children,
+  data,
+}: {
+  children: React.ReactNode;
+  data: Institutions;
+}) {
   return (
     <section>
       <div className="container md:hidden flex justify-between">
         <div className="flex items-center gap-x-1">
           <TbPhoneCall className="text-lg text-primary" />
-          <p className="text-xs text-primary font-medium">09512385721</p>
+          <p className="text-xs text-primary font-medium">{data.contact_no}</p>
         </div>
         <div className="flex items-center gap-x-1">
           <TbMapPin className="text-lg text-primary" />
-          <p className="text-xs text-primary font-medium">
-            Brgy. Bagong Tubig 4212 Calaca
-          </p>
+          <p className="text-xs text-primary font-medium">{data.address}</p>
         </div>
       </div>
       <div className="container py-5 flex justify-between items-center">
         <Link href="/">
           <Image
-            src="/mchc_with_text.png"
+            src={data.logo}
             alt="ONC Logo"
             width={190}
             priority
@@ -35,7 +40,9 @@ export default function NavHeader({ children }: { children: React.ReactNode }) {
                 <TbPhoneCall className="text-2xl text-primary" />
                 <div className=" leading-none">
                   <p className="font-bold text-primary">Contact</p>
-                  <span className="text-black font-medium">(123) 456-7890</span>
+                  <span className="text-black font-medium">
+                    {data.contact_no}
+                  </span>
                 </div>
               </div>
               <div className="flex items-start">
@@ -44,9 +51,7 @@ export default function NavHeader({ children }: { children: React.ReactNode }) {
                   <address className="font-bold uppercase not-italic text-primary">
                     Address
                   </address>
-                  <span className="text-black font-medium">
-                    Brgy. Bagong Tubig 4212 Calaca
-                  </span>
+                  <span className="text-black font-medium">{data.address}</span>
                 </div>
               </div>
             </div>

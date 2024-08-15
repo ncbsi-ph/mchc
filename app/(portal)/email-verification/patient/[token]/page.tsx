@@ -73,7 +73,7 @@ export default function VerifyPatient({ params: { token } }: Params) {
           title="Email Verification Successful"
           subTitle={response}
           extra={[
-            <Link href="/portal/patient/login">
+            <Link href="/portal/patient/login" key="login-link">
               <Button type="primary" key="console">
                 Click here to go in the login page
               </Button>

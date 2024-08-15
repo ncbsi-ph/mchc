@@ -4,7 +4,6 @@ import { usePatientUser, usePatientUserActions } from '@/app/store';
 import { Form, Input, Table, Tooltip, message } from 'antd';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { generateRandomString, patientLog } from '@/app/helpers';
 import { useRouter } from 'next/navigation';
 import {
   PatientExam,
@@ -25,7 +24,6 @@ export default function Patient() {
   const { email, patientNo, token } = usePatientUser();
   const [isLoading, setIsLoading] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
-  const isLoggedIn = Cookies.get(patientLog);
   const router = useRouter();
   const [data, setData] = useState<PatientExam[]>([]);
   const [isDataLoading, setIsDataLoading] = useState(true);
@@ -33,6 +31,7 @@ export default function Patient() {
   const [isChangePass, setIsChangePass] = useState(false);
   const [isChangeingPass, setIsChangeingPass] = useState(false);
   const [changePassForm] = Form.useForm();
+  const access_token = Cookies.get('mchc_patient_access_token');
 
   const handleViewPDF = async (value: string) => {
     try {
@@ -85,23 +84,23 @@ export default function Patient() {
 
   const refresh = async () => {
     try {
-      setIsLoading(true);
-      const response = await refreshToken('patient');
-      const { email, patientno, token } = response;
-      setUser(email, patientno, token);
+      if (access_token) {
+        setIsLoading(true);
+        const response = await refreshToken('patient', access_token);
+        const { email, patientno, token } = response;
+        setUser(email, patientno, token);
 
-      setIsLoading(false);
-      Cookies.set(patientLog, generateRandomString(), {
-        path: '/',
-        expires: 2,
-      });
+        setIsLoading(false);
+      } else {
+        router.push('/portal/patient/login');
+      }
     } catch (err: any) {
       if (err.response) {
         messageApi.error(err.response?.data);
       } else {
         messageApi.error('Something went wrong please try again later');
       }
-      Cookies.remove(patientLog);
+      Cookies.remove('mchc_patient_access_token');
       router.push('/portal/patient/login');
       console.log(err);
     }
@@ -128,7 +127,7 @@ export default function Patient() {
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (access_token) {
       refresh();
     } else {
       setIsLoading(true);
@@ -145,7 +144,7 @@ export default function Patient() {
   const handleLogout = async () => {
     try {
       await logout('patient');
-      Cookies.remove(patientLog);
+      Cookies.remove('mchc_patient_access_token');
       router.push('/portal/patient/login');
     } catch (err: any) {
       if (err.response) {

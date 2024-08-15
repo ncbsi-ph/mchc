@@ -37,12 +37,11 @@ const config: Config = {
       colors: {
         primary: '#E18E26',
         altPrimary: '#F2E8D2',
-        secondary: '#5B741A',
+        secondary: '#1F75FE',
         accent: '#33373E',
         altBlack: '#1D1D1F',
         milk: '#EEEEEE',
         altGray: '#F2F3F0',
-        yellow: '#FAE341',
       },
       screens: {
         lg: '960px',

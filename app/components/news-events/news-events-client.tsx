@@ -68,8 +68,8 @@ export default function NewsEventsClient({ data }: NewsEventsClientProps) {
             const type = item.type;
             let bgColor =
               type === 'news'
-                ? 'bg-primary text-yellow rounded-md'
-                : 'bg-yellow text-primary rounded-md';
+                ? 'bg-primary text-secondary rounded-md'
+                : 'bg-secondary text-primary rounded-md';
             return (
               <div key={i} className="bg-milk rounded-md overflow-hidden group">
                 <Link href={`/news-events/${item.id}/${item.slug}`}>
