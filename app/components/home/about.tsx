@@ -11,7 +11,7 @@ interface HomeAbout {
 const getHomeAbout = async (): Promise<HomeAbout> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}home/about`, {
     headers: {
-      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
     },
     cache: 'no-store',
   });

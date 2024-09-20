@@ -3,15 +3,35 @@ import dayjs from 'dayjs';
 import parse from 'html-react-parser';
 import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Privacy Policy ',
+  description:
+    'Review the Privacy Policy of Metro Calaca Hospital Corp. Learn about how we collect, use, and protect your personal information.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'Privacy Policy',
+    'Data Protection',
+    'Personal Information',
+    'Healthcare Privacy',
+  ],
+  openGraph: {
+    title: 'Privacy Policy | Metro Calaca Hospital Corp.',
+    description:
+      'Review the Privacy Policy of Metro Calaca Hospital Corp. Learn about how we collect, use, and protect your personal information.',
+    url: 'https://mchc.comlogikph.com/privacy-policy',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy | Metro Calaca Hospital Corp.',
+    description:
+      'Review the Privacy Policy of Metro Calaca Hospital Corp. Learn about how we collect, use, and protect your personal information.',
+  },
+};
 interface Privacy {
   privacy_policy: string;
   privacy_last_modified: string;
 }
-
-export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: 'Metro Calaca Hospital Corp Privacy Policy',
-};
 
 const getPrivacy = async (): Promise<Privacy> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}privacy-policy`, {

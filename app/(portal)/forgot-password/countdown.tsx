@@ -38,7 +38,7 @@ export default function Countdown({
     if (seconds === 0) {
       router.push(pushTo);
     }
-  }, [seconds]);
+  }, [seconds, pushTo, router]);
 
   return countdownStarted ? (
     <div className="absolute z-10 top-40 right-1/2 translate-x-1/2">

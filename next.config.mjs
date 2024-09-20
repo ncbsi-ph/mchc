@@ -8,6 +8,12 @@ const nextConfig = {
         hostname: 'mchcapi.comlogikph.com',
         pathname: '/images/**',
       },
+      // {
+      //   protocol: 'http',
+      //   hostname: 'localhost',
+      //   pathname: '/images/**',
+      //   port: '5219',
+      // },
     ],
     // domains: ['localhost'],
   },

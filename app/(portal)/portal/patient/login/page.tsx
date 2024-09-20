@@ -10,6 +10,7 @@ import { login } from '@/app/api/auth';
 import { forgotPassword } from '@/app/api';
 import ForgotPassword from '@/app/(portal)/forgotPassword';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface LoginFormValueTypes {
   email: string;
@@ -33,7 +34,7 @@ export default function PatientLogin() {
     } else {
       setIsLoggedIn(false);
     }
-  });
+  }, [access_token, router]);
 
   const handleLogin = async (values: LoginFormValueTypes) => {
     try {
@@ -92,7 +93,7 @@ export default function PatientLogin() {
       <div className="max-w-md grid m-auto h-screen content-center">
         {contextHolder}
         <div className="grid pb-12 justify-center">
-          <img
+          <Image
             src="/mchc_with_text.png"
             width={250}
             height={0}

@@ -8,7 +8,7 @@ import { Drawer, Menu, MenuProps } from 'antd';
 import Link from 'next/link';
 import { MdOpenInNew } from 'react-icons/md';
 import { IoMdClose } from 'react-icons/io';
-import { Institutions } from './footer';
+import { Institutions } from '../(general)/layout';
 
 interface NavigationProps {
   data: Institutions;

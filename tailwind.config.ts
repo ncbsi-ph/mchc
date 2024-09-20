@@ -11,7 +11,7 @@ const config: Config = {
       center: true,
       padding: '14px',
       screens: {
-        lg: '1300px',
+        lg: '1200px',
       },
     },
     extend: {
@@ -35,7 +35,7 @@ const config: Config = {
         },
       },
       colors: {
-        primary: '#E18E26',
+        primary: '#FF5B00',
         altPrimary: '#F2E8D2',
         secondary: '#1F75FE',
         accent: '#33373E',

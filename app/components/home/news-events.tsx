@@ -18,7 +18,7 @@ const getHomeNewsEvents = async (): Promise<NewsItemsTypes[]> => {
     `${process.env.NEXT_PUBLIC_API_URL}home/news-events`,
     {
       headers: {
-        'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+        'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
       },
       cache: 'no-store',
     }
@@ -89,7 +89,7 @@ export default async function NewsEvents() {
             <div className="grid gap-y-5">
               {other.map((item) => (
                 <Link
-                  href={`/news-events/${latest.id}/${latest.slug}`}
+                  href={`/news-events/${item.id}/${item.slug}`}
                   key={item.id}
                 >
                   <div className="flex gap-x-3 justify-start group">

@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import NewsEventsPostClient from '@/app/components/news-events/news-event-post-client';
 import { Metadata } from 'next';
@@ -19,7 +20,9 @@ export interface NewsItemTypes {
   thumbnail: string;
 }
 
-const getSingleNewsEvents = async (id: number): Promise<NewsItemTypes> => {
+const getSingleNewsEvents = async (
+  id: number
+): Promise<NewsItemTypes | null> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}news-event/${id}`,
     {
@@ -29,7 +32,7 @@ const getSingleNewsEvents = async (id: number): Promise<NewsItemTypes> => {
       cache: 'no-store',
     }
   );
-  if (!res.ok) throw new Error('failed to fetch data');
+  if (!res.ok) return null;
 
   return res.json();
 };
@@ -39,6 +42,10 @@ export async function generateMetadata({
 }: Params): Promise<Metadata> {
   let news_event = await getSingleNewsEvents(slug[0]);
 
+  if (!news_event) {
+    notFound(); // Redirect to the not-found page if the data is not found
+  }
+
   return {
     title: news_event.title,
     description: news_event.description,
@@ -47,7 +54,7 @@ export async function generateMetadata({
       description: news_event.description,
       type: 'article',
       publishedTime: news_event.date,
-      url: `${process.env.BASE_URL}news-events/${slug[0]}/${news_event.slug}`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}news-events/${slug[0]}/${news_event.slug}`,
       images: [
         {
           url: news_event.thumbnail,
@@ -64,6 +71,11 @@ export async function generateMetadata({
 
 export default async function NewsEvent({ params: { slug } }: Params) {
   const news_event = await getSingleNewsEvents(slug[0]);
+
+  if (!news_event) {
+    notFound(); // Redirect to the not-found page if the data is not found
+  }
+
   const pageTitle = news_event.title;
 
   return (

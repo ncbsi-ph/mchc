@@ -18,6 +18,7 @@ const getHmo = async (): Promise<HMOTypes[]> => {
     headers: {
       'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
     },
+    cache: 'no-store',
   });
   if (!res.ok) throw new Error('failed to fetch data');
   return res.json();

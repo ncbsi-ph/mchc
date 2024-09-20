@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face {
-  font-family: MtCorsiva;
-  src: url('/font/Monotype\ Corsiva.ttf') format('opentype');
-} */
-
 @layer base {
   .overlay {
     background: linear-gradient(
@@ -42,15 +37,6 @@
 ::after {
   --tw-content: '';
 }
-
-/*
-1. Use a consistent sensible line-height in all browsers.
-2. Prevent adjustments of font size after orientation changes in iOS.
-3. Use a more readable tab size.
-4. Use the user's configured `sans` font-family by default.
-5. Use the user's configured `sans` font-feature-settings by default.
-6. Use the user's configured `sans` font-variation-settings by default.
-*/
 
 html,
 :host {
@@ -416,6 +402,20 @@ Make elements with the HTML hidden attribute stay hidden by default.
   text-decoration: revert;
 }
 
+/* .ck-content img {
+  max-width: 100%;
+  height: auto;
+  @apply mx-auto;
+} */
+
+.ck-content > figure {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  max-width: 100%;
+  height: auto;
+  @apply mx-auto;
+}
 .ck-content > h1,
 .ck-content > h2,
 .ck-content > h3,

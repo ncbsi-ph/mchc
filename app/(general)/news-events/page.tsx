@@ -1,5 +1,33 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import NewsEventsClient from '@/app/components/news-events/news-events-client';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'News & Events ',
+  description:
+    'Stay updated with the latest news and events at Metro Calaca Hospital Corp. Discover our recent activities, announcements, and more.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'News',
+    'Events',
+    'Hospital News',
+    'Healthcare Events',
+    'Announcements',
+  ],
+  openGraph: {
+    title: 'News & Events | Metro Calaca Hospital Corp.',
+    description:
+      'Stay updated with the latest news and events at Metro Calaca Hospital Corp. Discover our recent activities, announcements, and more.',
+    url: 'https://mchc.comlogikph.com/news-events',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'News & Events | Metro Calaca Hospital Corp.',
+    description:
+      'Stay updated with the latest news and events at Metro Calaca Hospital Corp. Discover our recent activities, announcements, and more.',
+  },
+};
 
 export interface NewsEventsTypes {
   id: number;

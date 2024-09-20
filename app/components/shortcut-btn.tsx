@@ -33,7 +33,7 @@ export default function ShortcutBtn() {
           key={i}
           target="_blank"
           href={item.link}
-          className="px-5 py-4 md:py-3 flex justify-between items-center bg-primary text-white md:rounded-md cursor-pointer hover:bg-secondary"
+          className="px-5 py-4 md:py-3 flex justify-between items-center bg-primary text-white md:rounded-md hover:bg-secondary cursor-default"
         >
           <p className="text-xl font-medium md:text-base">{item.title}</p>
           <div className="h-16 aspect-square hidden md:block relative">

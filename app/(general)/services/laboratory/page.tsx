@@ -1,5 +1,32 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import LaboratoryClient from '@/app/components/services/laboratory-client';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Laboratory Services ',
+  description:
+    'Explore the comprehensive laboratory services offered at Metro Calaca Hospital Corp. Our state-of-the-art facilities ensure accurate and timely diagnostics.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'Laboratory Services',
+    'Medical Laboratory',
+    'Diagnostic Services',
+    'Healthcare',
+  ],
+  openGraph: {
+    title: 'Laboratory Services | Metro Calaca Hospital Corp.',
+    description:
+      'Explore the comprehensive laboratory services offered at Metro Calaca Hospital Corp. Our state-of-the-art facilities ensure accurate and timely diagnostics.',
+    url: 'https://mchc.comlogikph.com/services/laboratory',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Laboratory Services | Metro Calaca Hospital Corp.',
+    description:
+      'Explore the comprehensive laboratory services offered at Metro Calaca Hospital Corp. Our state-of-the-art facilities ensure accurate and timely diagnostics.',
+  },
+};
 
 export interface LaboratoryTypes {
   id: number;

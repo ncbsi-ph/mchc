@@ -1,6 +1,18 @@
 import Navigation from '../components/nav';
-import Footer, { Institutions } from '../components/footer';
+import Footer from '../components/footer';
 
+export interface Institutions {
+  id: number;
+  logo: string;
+  logo_white: string;
+  hero_background: string;
+  contact_no: string;
+  address: string;
+  email_general_info: string;
+  email_careers: string;
+  email_hmo_approval: string;
+  email_appointment: string;
+}
 const Institution = async (): Promise<Institutions> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}institution`, {
     headers: {
@@ -20,7 +32,7 @@ export default async function GeneralLayout({
     <section>
       <Navigation data={institution} />
       {children}
-      <Footer />
+      <Footer data={institution} />
     </section>
   );
 }

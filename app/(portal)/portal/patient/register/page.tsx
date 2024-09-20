@@ -52,7 +52,7 @@ export default function RegisterPatient() {
     } else {
       setIsLoggedIn(false);
     }
-  });
+  }, [access_token, router]);
 
   const validatePhoneNumber = (rule: any, value: string) => {
     const phoneNumber = String(value);

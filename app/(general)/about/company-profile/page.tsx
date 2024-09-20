@@ -3,16 +3,37 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 import parse from 'html-react-parser';
 import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Company Profile',
+  description:
+    'Learn about Metro Calaca Hospital Corp., including our establishment history and the dedicated personnel who make up our team.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'Company Profile',
+    'Hospital History',
+    'Healthcare Personnel',
+    'Medical Facility',
+  ],
+  openGraph: {
+    title: 'Company Profile | Metro Calaca Hospital Corp.',
+    description:
+      'Learn about Metro Calaca Hospital Corp., including our establishment history and the dedicated personnel who make up our team.',
+    url: 'https://mchc.comlogikph.com/about/company-profile',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Company Profile | Metro Calaca Hospital Corp.',
+    description:
+      'Learn about Metro Calaca Hospital Corp., including our establishment history and the dedicated personnel who make up our team.',
+  },
+};
+
 interface CompanyProfileTypes {
   id: number;
   establishment: string;
   personnel: string;
 }
-
-export const metadata: Metadata = {
-  title: 'Company Profile',
-  description: '/',
-};
 
 const getCompanyProfile = async (): Promise<CompanyProfileTypes> => {
   const res = await fetch(
@@ -21,6 +42,7 @@ const getCompanyProfile = async (): Promise<CompanyProfileTypes> => {
       headers: {
         'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
       },
+      cache: 'no-store',
     }
   );
   if (!res.ok) throw new Error('failed to fetch data');

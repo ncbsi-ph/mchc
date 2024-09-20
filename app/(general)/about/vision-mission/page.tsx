@@ -1,7 +1,34 @@
 import AboutNav from '@/app/components/about/aboutNav';
 import Breadcrumbs from '@/app/components/breadcrumbs';
-import { Metadata } from 'next';
 import Image from 'next/image';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Vision & Mission ',
+  description:
+    'Explore the vision and mission of Metro Calaca Hospital Corp. Learn about our goals, values, and the driving principles behind our healthcare services.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'Vision & Mission',
+    'Hospital Vision',
+    'Healthcare Mission',
+    'Hospital Goals',
+    'Healthcare Values',
+  ],
+  openGraph: {
+    title: 'Vision & Mission | Metro Calaca Hospital Corp.',
+    description:
+      'Explore the vision and mission of Metro Calaca Hospital Corp. Learn about our goals, values, and the driving principles behind our healthcare services.',
+    url: 'https://mchc.comlogikph.com/about/vision-mission',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Vision & Mission | Metro Calaca Hospital Corp.',
+    description:
+      'Explore the vision and mission of Metro Calaca Hospital Corp. Learn about our goals, values, and the driving principles behind our healthcare services.',
+  },
+};
 
 interface VisionMission {
   id: number;
@@ -11,11 +38,6 @@ interface VisionMission {
   mission_img: string;
 }
 
-export const metadata: Metadata = {
-  title: 'Vision & Mission',
-  description: 'Metro Calaca Hospital Corp Vision and Mission',
-};
-
 const getVisionMission = async (): Promise<VisionMission> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}about/mission-vision`,
@@ -23,6 +45,7 @@ const getVisionMission = async (): Promise<VisionMission> => {
       headers: {
         'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
       },
+      cache: 'no-store',
     }
   );
   if (!res.ok) throw new Error('failed to fetch data');

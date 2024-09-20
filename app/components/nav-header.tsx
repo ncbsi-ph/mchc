@@ -2,8 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaFacebook, FaYoutube } from 'react-icons/fa';
 import { TbMapPin, TbPhoneCall } from 'react-icons/tb';
-import { Institutions } from './footer';
-
+import { Institutions } from '../(general)/layout';
 export default function NavHeader({
   children,
   data,
@@ -16,17 +15,17 @@ export default function NavHeader({
       <div className="container md:hidden flex justify-between">
         <div className="flex items-center gap-x-1">
           <TbPhoneCall className="text-lg text-primary" />
-          <p className="text-xs text-primary font-medium">{data.contact_no}</p>
+          <p className="text-xs text-primary font-medium">{data?.contact_no}</p>
         </div>
         <div className="flex items-center gap-x-1">
           <TbMapPin className="text-lg text-primary" />
-          <p className="text-xs text-primary font-medium">{data.address}</p>
+          <p className="text-xs text-primary font-medium">{data?.address}</p>
         </div>
       </div>
       <div className="container py-5 flex justify-between items-center">
         <Link href="/">
           <Image
-            src={data.logo}
+            src={data?.logo}
             alt="ONC Logo"
             width={190}
             priority
@@ -41,7 +40,7 @@ export default function NavHeader({
                 <div className=" leading-none">
                   <p className="font-bold text-primary">Contact</p>
                   <span className="text-black font-medium">
-                    {data.contact_no}
+                    {data?.contact_no}
                   </span>
                 </div>
               </div>
@@ -51,7 +50,9 @@ export default function NavHeader({
                   <address className="font-bold uppercase not-italic text-primary">
                     Address
                   </address>
-                  <span className="text-black font-medium">{data.address}</span>
+                  <span className="text-black font-medium">
+                    {data?.address}
+                  </span>
                 </div>
               </div>
             </div>

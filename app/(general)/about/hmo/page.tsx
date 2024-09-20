@@ -2,6 +2,33 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 import HMOClient from '@/app/components/hmo/hmo-client';
 import Link from 'next/link';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Accredited HMO',
+  description:
+    'Explore the list of accredited Health Maintenance Organizations (HMOs) at Metro Calaca Hospital Corp. Learn about our trusted HMO partners and their services.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'Accredited HMO',
+    'Health Maintenance Organizations',
+    'HMO Partners',
+    'Healthcare Services',
+  ],
+  openGraph: {
+    title: 'Accredited HMO',
+    description:
+      'Explore the list of accredited Health Maintenance Organizations (HMOs) at Metro Calaca Hospital Corp. Learn about our trusted HMO partners and their services.',
+    url: 'https://mchc.comlogikph.com/about/hmo',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Accredited HMO',
+    description:
+      'Explore the list of accredited Health Maintenance Organizations (HMOs) at Metro Calaca Hospital Corp. Learn about our trusted HMO partners and their services.',
+  },
+};
 
 export interface HMOTypes {
   id: number;

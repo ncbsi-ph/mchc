@@ -25,7 +25,7 @@ interface OptTypes {
   value: string;
 }
 
-const bg = '#E18E26';
+const bg = '#FF5B00';
 const text = '#FFFFFF';
 
 export default function AppointmentClientForm() {

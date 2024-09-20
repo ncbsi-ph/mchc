@@ -2,36 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { HiOutlineMail } from 'react-icons/hi';
 import { TbPhoneCall } from 'react-icons/tb';
+import { Institutions } from '../(general)/layout';
 
-export interface Institutions {
-  id: number;
-  logo: string;
-  logo_white: string;
-  hero_background: string;
-  contact_no: string;
-  address: string;
-  email_general_info: string;
-  email_careers: string;
-  email_hmo_approval: string;
-  email_appointment: string;
+interface FooterProps {
+  data: Institutions;
 }
-
-const Institution = async (): Promise<Institutions> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}institution`, {
-    headers: {
-      'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
-    },
-    cache: 'no-store',
-  });
-  if (!res.ok) throw new Error('failed to fetch data');
-  return res.json();
-};
-
-export default async function Footer() {
+export default function Footer({ data }: FooterProps) {
   const date = new Date();
   let year = date.getFullYear();
-
-  const institution = await Institution();
 
   return (
     <footer className="bg-primary text-white">
@@ -39,7 +17,7 @@ export default async function Footer() {
         <div className="grid gap-y-10 lg:col-span-2">
           <Link href="/">
             <Image
-              src={institution.logo_white}
+              src={data.logo_white}
               alt="Metro Calaca Hospital Logo"
               width={190}
               height={0}
@@ -54,7 +32,7 @@ export default async function Footer() {
                 <TbPhoneCall className="text-2xl lg:text-xl" />
                 <p className="font-medium ">Telephone</p>
               </div>
-              <p className="lg:text-sm">{institution.contact_no}</p>
+              <p className="lg:text-sm">{data.contact_no}</p>
             </div>
             <div className="text-lg lg:text-base">
               <div className="flex items-center gap-x-1">
@@ -62,11 +40,11 @@ export default async function Footer() {
                 <p className="font-medium ">Email Address</p>
               </div>
               <a
-                href={`mailto:${institution.email_general_info}`}
+                href={`mailto:${data.email_general_info}`}
                 target="_blank"
                 className="underline underline-offset-1 lg:text-sm"
               >
-                {institution.email_general_info}
+                {data.email_general_info}
               </a>
             </div>
           </div>

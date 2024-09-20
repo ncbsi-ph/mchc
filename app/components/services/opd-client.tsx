@@ -36,7 +36,7 @@ export const OPDClient = ({ data }: OPDClientProps) => {
                     <div className="ck-content">{parse(item.child)}</div>
                   ),
                   style: {
-                    background: '#E18E26',
+                    background: '#FF5B00',
                     borderRadius: '6px',
                   },
                 },

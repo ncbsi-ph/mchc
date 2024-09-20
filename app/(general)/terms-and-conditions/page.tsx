@@ -3,15 +3,36 @@ import dayjs from 'dayjs';
 import parse from 'html-react-parser';
 import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Terms and Conditions',
+  description:
+    'Review the terms and conditions governing the use of Metro Calaca Hospital Corp. website. Understand your rights, responsibilities, and legal obligations.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'Terms and Conditions',
+    'Website Terms',
+    'User Agreement',
+    'Legal Obligations',
+  ],
+  openGraph: {
+    title: 'Terms and Conditions | Metro Calaca Hospital Corp.',
+    description:
+      'Review the terms and conditions governing the use of Metro Calaca Hospital Corp. website. Understand your rights, responsibilities, and legal obligations.',
+    url: 'https://mchc.comlogikph.com/terms-and-conditions',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Terms and Conditions | Metro Calaca Hospital Corp.',
+    description:
+      'Review the terms and conditions governing the use of Metro Calaca Hospital Corp. website. Understand your rights, responsibilities, and legal obligations.',
+  },
+};
+
 interface Terms {
   terms_and_conditions: string;
   terms_last_modified: string;
 }
-
-export const metadata: Metadata = {
-  title: 'Terms and Conditions',
-  description: 'app/(general)/services/opd/page.tsx Terms and Conditions',
-};
 
 const getTerms = async (): Promise<Terms> => {
   const res = await fetch(

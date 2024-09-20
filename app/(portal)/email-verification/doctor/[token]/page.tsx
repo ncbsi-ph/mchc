@@ -50,7 +50,7 @@ export default function VerifyDoctor({ params: { token } }: Params) {
 
   useEffect(() => {
     verifyEmail();
-  }, []);
+  });
 
   return (
     <div className="h-screen grid content-center">

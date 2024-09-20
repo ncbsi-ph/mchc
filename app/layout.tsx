@@ -18,10 +18,12 @@ const roboto_mono = Roboto_Mono({
 export const metadata: Metadata = {
   title: {
     default: ' Metro Calaca Hospital Corp (MCHC)',
-    template: '%s | Metro Calaca Hospital Corp (MLMC)',
+    template: '%s | Metro Calaca Hospital Corp (MCHC)',
   },
   description: '(MCHC)',
 };
+
+export const fetchCache = 'default-no-store';
 
 export default function RootLayout({
   children,
@@ -37,7 +39,7 @@ export default function RootLayout({
           <ConfigProvider
             theme={{
               token: {
-                colorPrimary: '#E18E26',
+                colorPrimary: '#FF5B00',
                 fontFamily: 'Inter',
                 colorTextSecondary: '#1F75FE',
               },
@@ -46,17 +48,17 @@ export default function RootLayout({
                   headerBg: '#ffffff',
                 },
                 Menu: {
-                  darkItemBg: '#E18E26',
+                  darkItemBg: '#FF5B00',
                   darkItemSelectedColor: '#1F75FE !important',
-                  itemSelectedBg: '#E18E26 !important',
-                  itemSelectedColor: '#1F75FE !important',
+                  itemSelectedBg: '#FF5B00 !important',
+                  itemSelectedColor: '#FFFFFF !important',
                   darkItemColor: '#ffffff',
                 },
                 Breadcrumb: {
                   itemColor: '#FFFFFF',
                   linkColor: '#FFFFFF',
                   linkHoverColor: '#FFFFFF',
-                  colorBgTextHover: '#E18E26',
+                  colorBgTextHover: '#FF5B00',
                   lastItemColor: '#1F75FE',
                   separatorColor: '#FFFFFF',
                 },

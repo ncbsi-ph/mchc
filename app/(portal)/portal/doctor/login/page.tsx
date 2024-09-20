@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { doctorLogin } from '@/app/api/auth';
 import { useDoctorActions } from '@/app/store';
 import { forgotPassword } from '@/app/api';
+import Image from 'next/image';
 
 export default function DoctorLogin() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -29,7 +30,7 @@ export default function DoctorLogin() {
     } else {
       setIsLoggedIn(false);
     }
-  });
+  }, [access_token, router]);
 
   const handleLogin = async (values: any) => {
     try {
@@ -89,7 +90,7 @@ export default function DoctorLogin() {
       <div className="max-w-md grid m-auto h-screen content-center">
         {contextHolder}
         <div className="grid pb-12 justify-center">
-          <img
+          <Image
             src="/mchc_with_text.png"
             width={250}
             height={0}

@@ -9,7 +9,7 @@ export interface listsTypes {
 const getHomeService = async (): Promise<listsTypes[]> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}home/service`, {
     headers: {
-      'x-api-key': `${process.env.NEXT_PUBLIC_API_URL}`,
+      'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
     },
     cache: 'no-store',
   });

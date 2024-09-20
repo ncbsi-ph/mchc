@@ -43,7 +43,7 @@ export default function AboutNav() {
             className={` py-1.5 px-4 text-sm rounded-sm ${
               pathname === item.link
                 ? 'text-white bg-secondary font-semibold'
-                : 'bg-primary text-white'
+                : 'bg-primary text-white hover:bg-secondary hover:transition delay-150 duration-700'
             }`}
           >
             <li>{item.label}</li>

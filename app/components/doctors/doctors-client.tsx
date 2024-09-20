@@ -1,13 +1,13 @@
 'use client';
 
-import { DoctorsTypes } from '@/app/(general)/doctors/page';
+import { DoctorSpecialties, DoctorsTypes } from '@/app/(general)/doctors/page';
 import { Empty, Input, Pagination, Select } from 'antd';
 import Image from 'next/image';
 import { useState } from 'react';
 
 interface DoctorClientProps {
   doctors: DoctorsTypes[];
-  specialties: string[];
+  specialties: DoctorSpecialties[];
 }
 
 const ITEMS_PER_PAGE = 10;
@@ -68,8 +68,8 @@ export default function DoctorsClient({
           placeholder="Specilization"
           className="w-full"
           options={specialties.map((specialty) => ({
-            value: specialty,
-            label: specialty,
+            value: specialty.specialty,
+            label: specialty.specialty,
           }))}
           virtual={false}
           onChange={handleFilter}
@@ -104,9 +104,9 @@ export default function DoctorsClient({
                 <div className="py-5 px-4 grid gap-5 md:col-span-2 lg:col-span-4 lg:grid-cols-2">
                   <div className="flex flex-col gap-y-1 lg:gap-2">
                     <h2 className="text-xl font-medium md:text-lg uppercase">
-                      {`${doctor.lname}, ${doctor.fname} ${
+                      {`${doctor.fname} ${
                         doctor.mname === null ? '' : doctor.mname
-                      }`}
+                      } ${doctor.lname} `}
                     </h2>
                     <div className="md:text-sm">
                       <label className="block text-slate-600 ">Specialty</label>

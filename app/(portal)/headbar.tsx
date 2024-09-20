@@ -2,6 +2,7 @@
 import { Dropdown, FormInstance, MenuProps, Space } from 'antd';
 import { BiChevronDown } from 'react-icons/bi';
 import ChangePasswordForm from './changePasswordForm';
+import Image from 'next/image';
 
 interface HeadBarProps {
   user?: string;
@@ -42,7 +43,12 @@ export default function HeadBar({
   return (
     <div className="bg-white">
       <div className="container py-3 flex justify-between items-center">
-        <img src="/mchc_with_text.png" width={250} height={0} alt="MCHC logo" />
+        <Image
+          src="/mchc_with_text.png"
+          width={250}
+          height={0}
+          alt="MCHC logo"
+        />
         <Dropdown
           menu={{ items }}
           trigger={['click']}

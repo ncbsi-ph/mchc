@@ -1,6 +1,33 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
-import { Metadata } from 'next';
 import Image from 'next/image';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Other Services ',
+  description:
+    'Explore the range of additional services provided by Metro Calaca Hospital Corp. to meet various healthcare needs. Quality care beyond the basics.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'Other Services',
+    'Healthcare Services',
+    'Medical Services',
+    'Hospital Services',
+  ],
+  openGraph: {
+    title: 'Other Services | Metro Calaca Hospital Corp.',
+    description:
+      'Explore the range of additional services provided by Metro Calaca Hospital Corp. to meet various healthcare needs. Quality care beyond the basics.',
+    url: 'https://mchc.comlogikph.com/services/others',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Other Services | Metro Calaca Hospital Corp.',
+    description:
+      'Explore the range of additional services provided by Metro Calaca Hospital Corp. to meet various healthcare needs. Quality care beyond the basics.',
+  },
+};
+
 interface OtherServices {
   id: number;
   name: string;
@@ -8,11 +35,6 @@ interface OtherServices {
   hash_link: string;
   description: string;
 }
-
-export const metadata: Metadata = {
-  title: 'Other Services',
-  description: 'Metro Calaca Hospital Corp Other Services',
-};
 
 const getOtherService = async (): Promise<OtherServices[]> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}service/others`, {

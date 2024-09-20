@@ -1,6 +1,6 @@
 'use client';
 import { Drawer, Form, Input, Table, Tooltip, message } from 'antd';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Spinner from '../../spinner';
 import HeadBar from '../../headbar';
 import { useDoctor, useDoctorActions } from '@/app/store';
@@ -41,7 +41,7 @@ export default function Doctor() {
   const [doctorRecord, setDataRecord] = useState<DoctorPatient>();
   const access_token = Cookies.get('mchc_doctor_access_token');
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     try {
       if (access_token) {
         setIsLoading(true);
@@ -62,7 +62,7 @@ export default function Doctor() {
       router.push('/portal/doctor/login');
       console.log(err);
     }
-  };
+  }, [access_token, router, messageApi, setDoctor]);
 
   useEffect(() => {
     if (access_token) {
@@ -71,7 +71,7 @@ export default function Doctor() {
       setIsLoading(true);
       router.push('/portal/doctor/login');
     }
-  }, []);
+  }, [access_token, refresh, router]);
 
   const handleLogout = async () => {
     try {
@@ -128,7 +128,7 @@ export default function Doctor() {
     setFilteredDoctorPatient(newFilteredData);
   };
 
-  const getPatients = async () => {
+  const getPatients = useCallback(async () => {
     try {
       const res = await getDoctorsPatient(doctorCode, token);
       const data = res.map((item) => ({
@@ -148,13 +148,14 @@ export default function Doctor() {
     } finally {
       setIsDataLoading(false);
     }
-  };
+  }, [doctorCode, token, messageApi]);
 
   useEffect(() => {
     if (!isLoading) {
       getPatients();
     }
-  }, [isLoading]);
+  }, [isLoading, getPatients]);
+
   const getPatientResults = async (doctorcode: string, patientNo: string) => {
     try {
       const res = await getDoctorPatientExam(doctorcode, patientNo, token);

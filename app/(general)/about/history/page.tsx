@@ -3,22 +3,43 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 import parse from 'html-react-parser';
 import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'History ',
+  description:
+    'Discover the history of Metro Calaca Hospital Corp., from its founding to its growth and achievements over the years.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'History',
+    'Hospital History',
+    'Healthcare History',
+    'Medical Facility',
+  ],
+  openGraph: {
+    title: 'History | Metro Calaca Hospital Corp.',
+    description:
+      'Discover the history of Metro Calaca Hospital Corp., from its founding to its growth and achievements over the years.',
+    url: 'https://mchc.comlogikph.com/about/history',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'History | Metro Calaca Hospital Corp.',
+    description:
+      'Discover the history of Metro Calaca Hospital Corp., from its founding to its growth and achievements over the years.',
+  },
+};
+
 interface HistoryTypes {
   id: number;
   history: string;
 }
-
-export const metadata: Metadata = {
-  title: 'History',
-  description:
-    'Metro Lemery Medical Center is a level 2 hospital situated at Palanas, Lemery Batangas. It was established on the May 25, 2005 and is owned by Saint Thomas Aquinas Hospital Corporation.',
-};
 
 const getHistory = async (): Promise<HistoryTypes> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}about/history`, {
     headers: {
       'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
     },
+    cache: 'no-store',
   });
   if (!res.ok) throw new Error('failed to fetch data');
   return res.json();

@@ -2,7 +2,7 @@
 
 import { usePatientUser, usePatientUserActions } from '@/app/store';
 import { Form, Input, Table, Tooltip, message } from 'antd';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import {
@@ -82,14 +82,13 @@ export default function Patient() {
     },
   ];
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     try {
       if (access_token) {
         setIsLoading(true);
         const response = await refreshToken('patient', access_token);
         const { email, patientno, token } = response;
         setUser(email, patientno, token);
-
         setIsLoading(false);
       } else {
         router.push('/portal/patient/login');
@@ -104,8 +103,18 @@ export default function Patient() {
       router.push('/portal/patient/login');
       console.log(err);
     }
-  };
-  const getPatientResults = async () => {
+  }, [access_token, router, messageApi, setUser]);
+
+  useEffect(() => {
+    if (access_token) {
+      refresh();
+    } else {
+      setIsLoading(true);
+      router.push('/portal/patient/login');
+    }
+  }, [access_token, refresh, router]);
+
+  const getPatientResults = useCallback(async () => {
     try {
       const res = await getPatientExam(patientNo, token);
       const data = res.map((item) => ({
@@ -124,22 +133,13 @@ export default function Patient() {
     } finally {
       setIsDataLoading(false);
     }
-  };
-
-  useEffect(() => {
-    if (access_token) {
-      refresh();
-    } else {
-      setIsLoading(true);
-      router.push('/portal/patient/login');
-    }
-  }, []);
+  }, [patientNo, messageApi, token]);
 
   useEffect(() => {
     if (!isLoading) {
       getPatientResults();
     }
-  }, [isLoading]);
+  }, [isLoading, getPatientResults]);
 
   const handleLogout = async () => {
     try {

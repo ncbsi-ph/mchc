@@ -49,7 +49,7 @@ export default function RegisterDoctor() {
     } else {
       setIsLoggedIn(false);
     }
-  });
+  }, [access_token, router]);
 
   const handleLogin = async (values: DoctorFormValues) => {
     try {

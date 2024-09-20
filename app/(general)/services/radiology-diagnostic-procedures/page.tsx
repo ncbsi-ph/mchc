@@ -2,17 +2,37 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 import { RadiologyClient } from '@/app/components/services/radiology-client';
 import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Radiology & Diagnostic Procedure',
+  description:
+    'Discover the advanced radiology and diagnostic services offered by Metro Calaca Hospital Corp. We provide precise and comprehensive healthcare diagnostics.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'Radiology',
+    'Diagnostic Procedure',
+    'Medical Imaging',
+    'Healthcare Diagnostics',
+  ],
+  openGraph: {
+    title: 'Radiology & Diagnostic Procedure | Metro Calaca Hospital Corp.',
+    description:
+      'Discover the advanced radiology and diagnostic services offered by Metro Calaca Hospital Corp. We provide precise and comprehensive healthcare diagnostics.',
+    url: 'https://mchc.comlogikph.com/services/radiology-diagnostic-procedures',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Radiology & Diagnostic Procedure | Metro Calaca Hospital Corp.',
+    description:
+      'Discover the advanced radiology and diagnostic services offered by Metro Calaca Hospital Corp. We provide precise and comprehensive healthcare diagnostics.',
+  },
+};
+
 export interface Radiology {
   id: 0;
   name: string;
   child: string | null;
 }
-
-export const metadata: Metadata = {
-  title: 'Radiology Diagnostic Procedures Services',
-  description:
-    'Metro Calaca Hospital Corp Radiology Diagnostic Procedures Services',
-};
 
 const getRadiology = async (): Promise<Radiology[]> => {
   const res = await fetch(

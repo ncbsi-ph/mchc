@@ -1,5 +1,32 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import CareersClient from '@/app/components/careers/careers-client';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Careers',
+  description:
+    'Explore career opportunities at Metro Calaca Hospital Corp. Join our team and contribute to delivering quality healthcare services.',
+  keywords: [
+    'Metro Calaca Hospital Corp.',
+    'Careers',
+    'Job Openings',
+    'Healthcare Careers',
+    'Medical Jobs',
+  ],
+  openGraph: {
+    title: 'Careers | Metro Calaca Hospital Corp.',
+    description:
+      'Explore career opportunities at Metro Calaca Hospital Corp. Join our team and contribute to delivering quality healthcare services.',
+    url: 'https://mchc.comlogikph.com/careers',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Careers | Metro Calaca Hospital Corp.',
+    description:
+      'Explore career opportunities at Metro Calaca Hospital Corp. Join our team and contribute to delivering quality healthcare services.',
+  },
+};
 
 export interface CareersTypes {
   id: string;

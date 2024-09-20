@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import CareerClient from '@/app/components/careers/career-client';
 import { Metadata } from 'next';
@@ -8,41 +9,6 @@ type Params = {
     slug: [number, string];
   };
 };
-
-const getCareer = async (id: number): Promise<CareerTypes> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}career/${id}`, {
-    headers: {
-      'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
-    },
-    cache: 'no-store',
-  });
-  if (!res.ok) throw new Error('failed to fetch data');
-
-  return res.json();
-};
-
-export async function generateMetadata({
-  params: { slug },
-}: Params): Promise<Metadata> {
-  let career = await getCareer(slug[0]);
-
-  return {
-    title: career.title,
-    description: career.job_summary,
-    openGraph: {
-      title: career.title,
-      description: career.job_summary,
-      type: 'article',
-      publishedTime: career.date_posted,
-      url: `${process.env.BASE_URL}careers/${slug[0]}/${career.slug}`,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: career.title,
-      description: career.job_summary,
-    },
-  };
-}
 
 export interface CareerTypes {
   id: number;
@@ -59,10 +25,55 @@ export interface CareerTypes {
   skills: string;
 }
 
+const getSingleCareer = async (id: number): Promise<CareerTypes | null> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}single-career/${id}`,
+    {
+      headers: {
+        'x-api-key': `${process.env.NEXT_PUBLIC_API_KEY}`,
+      },
+      cache: 'no-store',
+    }
+  );
+  if (!res.ok) return null;
+
+  return res.json();
+};
+
+export async function generateMetadata({
+  params: { slug },
+}: Params): Promise<Metadata> {
+  let career = await getSingleCareer(slug[0]);
+
+  if (!career) {
+    notFound();
+  }
+
+  return {
+    title: career.title,
+    description: career.job_summary,
+    openGraph: {
+      title: career.title,
+      description: career.job_summary,
+      type: 'article',
+      publishedTime: career.date_posted,
+      url: `${process.env.NEXT_PUBLIC_API_URL}careers/${slug[0]}/${career.slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: career.title,
+      description: career.job_summary,
+    },
+  };
+}
+
 export default async function Career({ params: { slug } }: Params) {
-  // const pageTitle = 'Test';
-  const pageTitle = slug[1];
-  const career = await getCareer(slug[0]);
+  const career = await getSingleCareer(slug[0]);
+
+  if (!career) {
+    notFound();
+  }
+  const pageTitle = career.title;
   return (
     <>
       <Breadcrumbs
