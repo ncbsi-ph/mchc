@@ -3,6 +3,7 @@ import { Inter, Montserrat, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider } from 'antd';
+import PrivacyModal from './components/privacy-modal';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -69,6 +70,7 @@ export default function RootLayout({
               },
             }}
           >
+            <PrivacyModal />
             <main>{children}</main>
           </ConfigProvider>
         </AntdRegistry>

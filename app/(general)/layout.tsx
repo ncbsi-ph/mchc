@@ -1,5 +1,6 @@
 import Navigation from '../components/nav';
 import Footer from '../components/footer';
+import PrivacyModal from '../components/privacy-modal';
 
 export interface Institutions {
   id: number;
@@ -31,6 +32,7 @@ export default async function GeneralLayout({
   return (
     <section>
       <Navigation data={institution} />
+
       {children}
       <Footer data={institution} />
     </section>

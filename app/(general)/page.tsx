@@ -1,11 +1,11 @@
 import HomeBanner from '../components/home/HomeBanner';
 import About from '../components/home/about';
-import BannerCarousel from '../components/home/bannerCarousel';
 import Contact from '../components/home/contact';
 import Faqs from '../components/home/faqs';
 import Map from '../components/home/map';
 import NewsEvents from '../components/home/news-events';
 import Services from '../components/home/services';
+import PrivacyModal from '../components/privacy-modal';
 import ShortcutBtn from '../components/shortcut-btn';
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
       <About />
       <Services />
       <NewsEvents />
-      <section
+      <div
         className=" bg-center bg-cover bg-[url('/onc_building.jpg')]"
         id="contact"
       >
@@ -26,7 +26,7 @@ export default function Home() {
             <Faqs />
           </div>
         </div>
-      </section>
+      </div>
       <Map />
     </section>
   );
