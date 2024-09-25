@@ -1,4 +1,5 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
+import { getServicePricesStatus } from '@/app/components/hooks/get-service-prices-status';
 import { OPDClient } from '@/app/components/services/opd-client';
 import { Metadata } from 'next';
 
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
 export interface OPDTypes {
   id: 0;
   name: string;
-  child: string | null;
+  price: string;
 }
 
 const getOPD = async (): Promise<OPDTypes[]> => {
@@ -47,6 +48,7 @@ const getOPD = async (): Promise<OPDTypes[]> => {
 
 export default async function OPD() {
   const pageTitle = 'Out-Patient Department';
+  const pricesStatus = await getServicePricesStatus();
   const opd = await getOPD();
   return (
     <>
@@ -54,7 +56,9 @@ export default async function OPD() {
         items={[{ title: 'Services' }, { title: pageTitle }]}
         title={pageTitle}
       />
-      <OPDClient data={opd} />
+      <section className="container my-28">
+        <OPDClient data={opd} pricesStatus={pricesStatus} />
+      </section>
     </>
   );
 }

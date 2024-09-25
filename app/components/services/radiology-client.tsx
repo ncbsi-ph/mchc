@@ -1,57 +1,73 @@
 'use client';
 
 import { Radiology } from '@/app/(general)/services/radiology-diagnostic-procedures/page';
-import { Collapse } from 'antd';
-import { ConfigProvider } from 'antd';
-import parse from 'html-react-parser';
+import { Empty, Input, Pagination } from 'antd';
+import { useState } from 'react';
 
 interface RadiologyClientProps {
   data: Radiology[];
+  pricesStatus: boolean;
 }
 
-export const RadiologyClient = ({ data }: RadiologyClientProps) => {
-  const sortedData = data.sort((a, b) =>
-    a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+const ITEMS_PER_PAGE = 20;
+export const RadiologyClient = ({
+  data,
+  pricesStatus,
+}: RadiologyClientProps) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const filteredData = data.filter((service: Radiology) =>
+    service.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const totalItems = filteredData.length;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
+
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+
+  const paginatedData = filteredData.slice(startIndex, endIndex);
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorTextHeading: '#FFFFFF',
-        },
-      }}
-    >
-      <section className="my-28 container grid gap-y-5">
-        {sortedData.map((item) =>
-          item.child !== null ? (
-            <Collapse
-              key={item.id}
-              expandIconPosition="end"
-              style={{}}
-              items={[
-                {
-                  key: item.id,
-                  label: item.name,
-                  children: (
-                    <div className="ck-content">{parse(item.child)}</div>
-                  ),
-                  style: {
-                    background: '#FF5B00',
-                    borderRadius: '6px',
-                  },
-                },
-              ]}
-            />
-          ) : (
-            <div
-              key={item.id}
-              className="bg-primary text-white py-3 px-4 border border-[#d9d9d9] rounded-md text-sm"
-            >
-              <p>{item.name}</p>
-            </div>
-          )
-        )}
-      </section>
-    </ConfigProvider>
+    <div>
+      <div className="pb-10">
+        <Input
+          placeholder="Search for Radiology Services"
+          size="large"
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+      </div>
+      {paginatedData.length > 0 ? (
+        <ul>
+          {paginatedData.map((service) => (
+            <li key={service.id} className="p-2 odd:bg-altGray">
+              <div className="flex flex-wrap justify-between">
+                <p>{service.name}</p>
+                {pricesStatus && <p>{service.price}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <Empty />
+      )}
+      <div className="pt-10 flex justify-center">
+        <Pagination
+          current={currentPage}
+          pageSize={ITEMS_PER_PAGE}
+          total={totalItems}
+          onChange={handlePageChange}
+          showSizeChanger={false}
+        />
+      </div>
+    </div>
   );
 };

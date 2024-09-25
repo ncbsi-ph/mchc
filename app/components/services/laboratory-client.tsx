@@ -6,11 +6,15 @@ import { useState } from 'react';
 
 interface LaboratoryClientProps {
   data: LaboratoryTypes[];
+  pricesStatus: boolean;
 }
 
 const ITEMS_PER_PAGE = 20;
 
-export default function LaboratoryClient({ data }: LaboratoryClientProps) {
+export default function LaboratoryClient({
+  data,
+  pricesStatus,
+}: LaboratoryClientProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -47,8 +51,12 @@ export default function LaboratoryClient({ data }: LaboratoryClientProps) {
       {paginatedData.length > 0 ? (
         <ul>
           {paginatedData.map((service, i) => (
-            <li key={i} className="p-2 odd:bg-altGray">
-              {service.name}
+            <li key={service.id} className="p-2 odd:bg-altGray">
+              <div className="flex flex-wrap justify-between">
+                <p>{service.name}</p>
+
+                {pricesStatus && <p>{service.price}</p>}
+              </div>
             </li>
           ))}
         </ul>

@@ -1,4 +1,5 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
+import { getServicePricesStatus } from '@/app/components/hooks/get-service-prices-status';
 import LaboratoryClient from '@/app/components/services/laboratory-client';
 import { Metadata } from 'next';
 
@@ -31,6 +32,7 @@ export const metadata: Metadata = {
 export interface LaboratoryTypes {
   id: number;
   name: string;
+  price: string;
 }
 
 const getLab = async (): Promise<LaboratoryTypes[]> => {
@@ -46,6 +48,7 @@ const getLab = async (): Promise<LaboratoryTypes[]> => {
 
 export default async function Laboratory() {
   const pageTitle = 'Laboratory';
+  const pricesStatus = await getServicePricesStatus();
   const lab = await getLab();
   return (
     <>
@@ -54,7 +57,7 @@ export default async function Laboratory() {
         title={pageTitle}
       />
       <section className="container my-28">
-        <LaboratoryClient data={lab} />
+        <LaboratoryClient data={lab} pricesStatus={pricesStatus} />
       </section>
     </>
   );

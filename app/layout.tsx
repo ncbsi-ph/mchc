@@ -51,8 +51,6 @@ export default function RootLayout({
                 Menu: {
                   darkItemBg: '#FF5B00',
                   darkItemSelectedColor: '#1F75FE !important',
-                  itemSelectedBg: '#FF5B00 !important',
-                  itemSelectedColor: '#FFFFFF !important',
                   darkItemColor: '#ffffff',
                 },
                 Breadcrumb: {

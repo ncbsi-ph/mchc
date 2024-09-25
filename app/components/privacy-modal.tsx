@@ -64,8 +64,8 @@ const PrivacyModal = () => {
               Metro Calaca Hospital Corp. respects your privacy and will keep
               secure and confidential all personal and sensitive information
               that you may provide to Metro Calaca Hospital Corp. and/or those
-              that Metro Calaca Hospital Corp. may collect from you ("Personal
-              Data").
+              that Metro Calaca Hospital Corp. may collect from you
+              (&quot;Personal Data&quot;).
             </p>
             <p>
               Please read carefully the Metro Calaca Hospital Corp. General

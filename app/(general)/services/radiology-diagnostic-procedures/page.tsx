@@ -1,4 +1,5 @@
 import Breadcrumbs from '@/app/components/breadcrumbs';
+import { getServicePricesStatus } from '@/app/components/hooks/get-service-prices-status';
 import { RadiologyClient } from '@/app/components/services/radiology-client';
 import { Metadata } from 'next';
 
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
 export interface Radiology {
   id: 0;
   name: string;
-  child: string | null;
+  price: string;
 }
 
 const getRadiology = async (): Promise<Radiology[]> => {
@@ -50,6 +51,7 @@ const getRadiology = async (): Promise<Radiology[]> => {
 
 export default async function RadiologyDiagnostic() {
   const pageTitle = 'Radiology and Diagnostic Procedure';
+  const pricesStatus = await getServicePricesStatus();
   const radiology = await getRadiology();
 
   return (
@@ -58,7 +60,10 @@ export default async function RadiologyDiagnostic() {
         items={[{ title: 'Services' }, { title: pageTitle }]}
         title={pageTitle}
       />
-      <RadiologyClient data={radiology} />
+      <section className="container my-28">
+        {' '}
+        <RadiologyClient data={radiology} pricesStatus={pricesStatus} />
+      </section>
     </>
   );
 }
